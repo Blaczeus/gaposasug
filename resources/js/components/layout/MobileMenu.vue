@@ -54,27 +54,27 @@
           <li><a class="mobile-menu-link main" href="/">Home</a></li>
           <li><a class="mobile-menu-link main" href="/about">About</a></li>
           <li><a class="mobile-menu-link main" href="/events">Events</a></li>
-          <li><a class="mobile-menu-link main" href="/blogs">News</a></li>
+          <li><a class="mobile-menu-link main" href="/blog">News</a></li>
           <li><a class="mobile-menu-link main" href="/student-voice">Student Voice</a></li>
 
           <li class="has-droupdown">
             <a href="javascript:void(0);" class="main">Alumni</a>
             <ul class="submenu mm-collapse">
-              <li><a href="/alumni-benefits">Alumni Benefits</a></li>
-              <li><a href="/graduate-support">Graduate Career Support</a></li>
-              <li><a href="/networking-events">Events and Networking</a></li>
-              <li><a href="/recent-graduates">Recent Graduates</a></li>
-              <li><a href="/mentorship">Mentorship</a></li>
-              <li><a href="/alumni-account">Alumni Account</a></li>
+              <li><a :href="route('alumni.benefits')">Alumni Benefits</a></li>
+              <li><a :href="route('alumni.support')">Graduate Career Support</a></li>
+              <li><a :href="route('alumni.events')">Events and Networking</a></li>
+              <li><a :href="route('alumni.recent')">Recent Graduates</a></li>
+              <li><a :href="route('alumni.mentorship')">Mentorship</a></li>
+              <li><a :href="route('alumni.account')">Alumni Account</a></li>
             </ul>
           </li>
 
           <li class="has-droupdown">
             <a href="javascript:void(0);" class="main">Support</a>
             <ul class="submenu mm-collapse">
-              <li><a href="/support/housing">Housing Issue</a></li>
-              <li><a href="/support/academic">Academic</a></li>
-              <li><a href="/support/report">Report</a></li>
+              <li><a :href="route('support.housing')">Housing Issue</a></li>
+              <li><a :href="route('support.academic')">Academic</a></li>
+              <li><a :href="route('support.report')">Report</a></li>
             </ul>
           </li>
         </ul>
@@ -110,6 +110,14 @@ const closeMenu = () => {
 }
 
 onMounted(() => {
-  $('#mobile-menu-active').metisMenu()
-})
+  const interval = setInterval(() => {
+    const menu = document.getElementById('mobile-menu-active');
+
+    if (menu && window.$ && typeof window.$(menu).metisMenu === 'function') {
+      window.$(menu).metisMenu();
+      clearInterval(interval);
+    }
+  }, 100);
+});
+
 </script>

@@ -17,18 +17,8 @@
         d: function (e) {
             (this._window = $(window)), (this._document = $(document)), (this._body = $('body')), (this._html = $('html'));
         },
-        metisMenuInit: function () {
-            const $menu = $('#mobile-menu-active');
-            if ($menu.length) {
-              console.log('Initializing metisMenu...');
-              $menu.metisMenu();
-            } else {
-              console.warn('No #mobile-menu-active element found.');
-            }
-        },          
         methods: function (e) {
             rtsJs.swiperActivation();
-            rtsJs.metisMenuInit();
             rtsJs.counterUp();
             rtsJs.searchOption();
             rtsJs.niceSelect();

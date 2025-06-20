@@ -1,11 +1,23 @@
 import '../css/app.css';
 
+import $ from 'jquery';
+import 'metismenu';
+
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
 import { initializeTheme } from './composables/useAppearance';
+
+declare global {
+    interface Window {
+        $: typeof $;
+        jQuery: typeof $;
+    }
+}
+
+window.$ = window.jQuery = $
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

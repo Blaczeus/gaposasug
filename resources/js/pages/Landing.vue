@@ -3,6 +3,8 @@ import SwiperInit from '@/components/ui/SwiperInit.vue'
 import BackToTop from '@/components/ui/BackToTop.vue'
 import Header from '@/components/layout/Header.vue'
 import MobileMenu from '@/components/layout/MobileMenu.vue'
+import Footer from '@/components/layout/Footer.vue'
+import SearchBar from '@/components/ui/SearchBar.vue'
 </script>
 
 <template>
@@ -1201,114 +1203,17 @@ rt-white before-white">Visit Program <span><i class="fa-sharp fa-regular fa-arro
     <!-- newsletter end -->
 
     <!-- footer start -->
-    <footer class="rts-footer v_2 pt--100 pb--100">
-      <div class="container">
-        <div class="row gy-5 gy-lg-0">
-          <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="rts-footer-widget w-320">
-              <a href="index-2.html" class="d-block rts-footer-logo mb--40">
-                <img src="/assets/images/logo/logo__white.svg" alt="Unipix">
-              </a>
-              <p>
-                We are passionate education dedicated to providing high-quality
-                resources learners all backgrounds.
-              </p>
-              <div class="rts-contact-link">
-                <a href="mailto:contact@reacthemes.com"><i class="fa-sharp fa-light fa-location-dot"></i> Park,
-                  Melbourne, Australia </a>
-                <a href="callto:121"><i class="fa-thin fa-phone"></i> 485-826-710</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-6 col-sm-6">
-            <div class="rts-footer-widget ">
-              <h6 class="rt-semi">Our Campus</h6>
-              <div class="rts-footer-menu">
-                <ul>
-                  <li><a href="academic.html">Academic</a></li>
-                  <li><a href="athletics.html">Athletics</a></li>
-                  <li><a href="campus-life.html">Campus life</a></li>
-                  <li><a href="reasearch.html">Research</a></li>
-                  <li><a href="academic-area.html">Academic Area</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-6 col-sm-4">
-            <div class="rts-footer-widget ml--30">
-              <h6 class="rt-semi">Our Campus</h6>
-              <div class="rts-footer-menu">
-                <ul>
-                  <li><a href="about.html">About </a></li>
-                  <li><a href="tution-fee.html">Tution Fee</a></li>
-                  <li><a href="alumni.html">Alumni</a></li>
-                  <li><a href="faculty.html">Faculty Staff</a></li>
-                  <li><a href="event.html">Event</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-8">
-            <div class="rts-footer-widget ml--30">
-              <h6 class="rt-semi">Recent Post</h6>
-              <div class="rts-post-widget">
-                <ul class="list-unstyled">
-                  <li class="single-post">
-                    <a href="blog-details.html" class="blog-thumb">
-                      <img src="/assets/images/blog/w-1.jpg" alt="latest post">
-                    </a>
-                    <div class="post-content">
-                      <span class="rt-date">October 29, 2023</span>
-                      <a href="blog-details.html">
-                        Avoid These 4 Common When Managing Remote Teams
-                      </a>
-                    </div>
-                  </li>
-                  <li class="single-post">
-                    <a href="blog-details.html" class="blog-thumb">
-                      <img src="/assets/images/blog/small-thumb-1.jpg" alt="latest post">
-                    </a>
-                    <div class="post-content">
-                      <span class="rt-date">October 29, 2023</span>
-                      <a href="blog-details.html">
-                        Avoid These 4 Common When Managing Remote Teams
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <div class="rts-footer-copy-right v_1">
-      <div class="container">
-        <div class="row">
-          <div class="rt-center">
-            <p class="--p-xs">Copyright &copy; <span id="year"></span> All Rights Reserved by <a href="#">Unipix</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Footer />
     <!-- footer end -->
-    <!-- offcanvase menu -->
-    <!-- header style two -->
-    <MobileMenu />
-    <!-- header style two End -->
 
-    <div class="search-input-area">
-      <div class="container">
-        <div class="search-input-inner">
-          <div class="input-div">
-            <input class="search-input autocomplete ui-autocomplete-input" type="text"
-              placeholder="Search by keyword or #" autocomplete="off">
-            <button><i class="far fa-search"></i></button>
-          </div>
-        </div>
-      </div>
-      <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
-    </div>
+    <!-- Mobile header style start-->
+    <MobileMenu />
+    <!-- Mobile header style End -->
+
+    <!-- Search Bar start -->
+    <SearchBar/>
+    <!-- Search Bar end -->
+
     <!-- rts backto top start -->
     <div class="progress-wrap">
       <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
@@ -1317,9 +1222,9 @@ rt-white before-white">Visit Program <span><i class="fa-sharp fa-regular fa-arro
         </path>
       </svg>
     </div>
-    <!-- rts back to top end -->
     <BackToTop />
     <div id="anywhere-home">
     </div>
+    <!-- rts back to top end -->
   </div>
 </template>

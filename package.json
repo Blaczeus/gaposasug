@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",
+        "@types/jquery": "^3.5.32",
         "@types/node": "^22.13.5",
         "@vue/eslint-config-typescript": "^14.3.0",
         "eslint": "^9.17.0",
@@ -33,6 +34,7 @@
         "jquery": "^3.7.1",
         "laravel-vite-plugin": "^1.0",
         "lucide-vue-next": "^0.468.0",
+        "metismenu": "^3.0.7",
         "reka-ui": "^2.2.0",
         "swiper": "^11.2.8",
         "tailwind-merge": "^3.2.0",
