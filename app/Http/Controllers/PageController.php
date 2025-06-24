@@ -21,16 +21,31 @@ class PageController extends Controller
 
     public function events(): Response
     {
-        return Inertia::render('Events');
+        return Inertia::render('events/Index');
+    }
+
+    public function eventDetails( String $slug): Response
+    {
+        return Inertia::render('events/Details', ['slug' => $slug]);
     }
 
     public function blog(): Response
     {
-        return Inertia::render('Blog');
+        return Inertia::render('blog/Index');
+    }
+
+    public function blogDetails( String $slug): Response
+    {
+        return Inertia::render('blog/Details', ['slug' => $slug]);
     }
 
     public function studentVoice(): Response
     {
         return Inertia::render('StudentVoice');
+    }
+
+    public function contact(): Response
+    {
+        return Inertia::render('Contact');
     }
 }
