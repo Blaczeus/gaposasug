@@ -14,29 +14,26 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
     <!-- header area end -->
 
     <!-- BREADCRUMB AREA -->
-    <Breadcrumb 
-      title="About Gaposa" 
-      :breadcrumbs="[
+    <Breadcrumb title="About Gaposa" :breadcrumbs="[
         { label: 'Home', route: 'home' },
         { label: 'About' }
-      ]" 
-    />
+      ]" />
     <!-- BREADCRUMB AREA END -->
 
 
-    <!-- about university -->
+    <!-- About the SUG -->
     <section class="rts-about-university rts-section-padding">
       <div class="container">
         <div class="row">
           <div class="rts-section">
             <div class="col-lg-4 col-md-5">
-              <h3 class="rts-section-title">About University</h3>
+              <h3 class="rts-section-title">About the Union</h3>
             </div>
             <div class="col-lg-8 col-md-7">
               <p class="rts-section-description">
-                Welcome to Unipix University, where knowledge meets inspiration, and every individual's educational
-                journey is valued. Established in 1971 Establishment, our university has been a bastion of learning,
-                innovation, and community for 51 years years.
+                The Student Union Government (SUG) of GAPOSA is the voice and representative body of the student
+                community. We are dedicated to promoting student welfare, fostering unity, and building a bridge between
+                the student body and the school management through advocacy, transparency, and service.
               </p>
             </div>
           </div>
@@ -44,36 +41,36 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
         <div class="row g-5 justify-content-md-center justify-content-start">
           <div class="col-lg-7 col-xl-8 col-md-11">
             <div class="rts-about-section">
-              <img src="/assets/images/about/about-01.jpg" alt="">
+              <img src="/assets/images/about/about-01.jpg" alt="About SUG">
             </div>
           </div>
           <div class="col-lg-5 col-xl-4 col-md-11">
             <div class="rts-about-details">
               <div class="single-about-info">
                 <div class="content">
-                  <h3 class="title">20,000</h3>
+                  <h3 class="title">12+</h3>
                   <img src="/assets/images/icon/11.svg" alt="">
                 </div>
                 <div class="desc">
-                  <p>undergraduate and graduate students</p>
+                  <p>active SUG executives representing student interests</p>
                 </div>
               </div>
               <div class="single-about-info">
                 <div class="content">
-                  <h3 class="title">16,214</h3>
+                  <h3 class="title">10,000+</h3>
                   <img src="/assets/images/icon/12.svg" alt="">
                 </div>
                 <div class="desc">
-                  <p>Unipix University Faculty and Staff</p>
+                  <p>students served across ND & HND programs</p>
                 </div>
               </div>
               <div class="single-about-info">
                 <div class="content">
-                  <h3 class="title">300k</h3>
+                  <h3 class="title">24/7</h3>
                   <img src="/assets/images/icon/13.svg" alt="">
                 </div>
                 <div class="desc">
-                  <p>Unipix Alumni Worldwide</p>
+                  <p>support and representation, always available</p>
                 </div>
               </div>
             </div>
@@ -81,53 +78,56 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
         </div>
       </div>
     </section>
-    <!-- about university end -->
+    <!-- About the SUG End -->
 
-    <!-- history -->
+
+    <!-- SUG History -->
     <div class="rts-history">
       <div class="container">
         <div class="row g-5 justify-content-md-center justify-content-start align-items-center">
           <div class="col-lg-6 col-md-11">
             <div class="rts-history-image">
-              <img src="/assets/images/about/history.jpg" alt="history">
+              <img src="/assets/images/about/history.jpg" alt="SUG History">
             </div>
           </div>
           <div class="col-lg-6 col-md-11">
             <div class="rts-history-section">
-              <h4 class="rts-section-title mb--40">The history of Unipix</h4>
+              <h4 class="rts-section-title mb--40">History of the Student Union</h4>
               <p>
-                On September 8, 1971, Unipix, the first college in the American colonies, was founded in Cambridge,
-                Massachusetts. Unipix University was officially founded by a vote by the Great and General Court of the
-                Massachusetts Bay Colony.
+                The GAPOSA Student Union Government was established to champion student rights, promote unity, and
+                foster leadership on campus. Over the years, the union has evolved into a structured body that plays a
+                vital role in policy advocacy, welfare support, and representing student voices at key institutional
+                levels.
                 <span class="d-block mb--30"></span>
-                Unipix endowment started with John Unipix initial donation of 400 books and half his estate, but in
-                1721, Thomas Hollis began the now standard practice of requiring that a donation be used for a specific
-                purpose when he donated money for “a Divinity Professor, to read lectures in the Halls to the students.”
+                Through various administrations, the union has led meaningful campaigns, organized impactful events, and
+                ensured that the voices of students are always heard where it matters most.
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- history end-->
+    <!-- SUG History End -->
 
 
+
+    <!-- SUG Impact Stats -->
     <div class="rts-funfact rts-section-padding">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-10 ">
+          <div class="col-lg-10">
             <div class="rts-funfact-wrapper">
               <div class="single-cta-item">
-                <h2 class="single-cta-item__title">90%</h2>
-                <p>post-graduation success rate</p>
+                <h2 class="single-cta-item__title">95%</h2>
+                <p>successful student welfare cases resolved</p>
               </div>
               <div class="single-cta-item">
-                <h2 class="single-cta-item__title">Top 10</h2>
-                <p>Colleges that Create Futures</p>
+                <h2 class="single-cta-item__title">50+</h2>
+                <p>campus-wide events organized annually</p>
               </div>
               <div class="single-cta-item">
-                <h2 class="single-cta-item__title">No. 1</h2>
-                <p>in the nation for materials R&D</p>
+                <h2 class="single-cta-item__title">100%</h2>
+                <p>commitment to student representation</p>
               </div>
             </div>
           </div>
@@ -135,8 +135,7 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
       </div>
     </div>
 
-
-    <!-- mission -->
+    <!-- Mission and Values -->
     <section class="rts-mission">
       <div class="container">
         <div class="row justify-content-center rt-center">
@@ -144,41 +143,35 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
             <h2 class="rts-section-title">Mission and Values</h2>
           </div>
         </div>
-        <!-- mission -->
         <div class="row">
           <div class="col-lg-12">
             <div class="rts-timeline-section">
               <div class="rts-timeline-content">
                 <div class="left-side">
                   <div class="single-timeline-item">
-                    <h5 class="timeline-title">Diversity</h5>
-                    <p> Celebrating a rich tapestry of backgrounds,
-                      perspectives, and talents
+                    <h5 class="timeline-title">Advocacy</h5>
+                    <p> We speak up for the welfare and rights of every GAPOSA student, on every platform that matters.
                     </p>
                     <img src="/assets/images/about/mission-1.jpg" alt="">
                   </div>
                   <div class="single-timeline-item">
-                    <h5 class="timeline-title">Innovation</h5>
-                    <p> Encouraging creativity, critical thinking, and a
-                      spirit of innovation.
-                    </p>
+                    <h5 class="timeline-title">Unity</h5>
+                    <p> Bridging gaps across departments, levels, and backgrounds to promote one student body, one
+                      voice.</p>
                     <img src="/assets/images/about/mission-2.jpg" alt="">
                   </div>
                 </div>
-                <div class="separator">
-                </div>
+                <div class="separator"></div>
                 <div class="right-side">
                   <div class="single-timeline-item">
-                    <h5 class="timeline-title">Excellence</h5>
-                    <p> Striving for academic and research excellence
-                      in all endeavors.
-                    </p>
+                    <h5 class="timeline-title">Leadership</h5>
+                    <p> We foster student leadership, accountability, and civic responsibility through example and
+                      service.</p>
                     <img src="/assets/images/about/mission-3.jpg" alt="">
                   </div>
                   <div class="single-timeline-item">
-                    <h5 class="timeline-title">Academic Excellence</h5>
-                    <p> Our commitment to academic excellence is reflected in
-                      the diverse range
+                    <h5 class="timeline-title">Service</h5>
+                    <p> Every project, every policy, every word — done in service to students and the future of GAPOSA.
                     </p>
                     <img src="/assets/images/about/mission-4.jpg" alt="">
                   </div>
@@ -189,33 +182,39 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
         </div>
       </div>
     </section>
-    <!-- mission end-->
+    <!-- Mission End -->
+
+
     <section class="rts-campus-tour rts-section-padding">
       <div class="container">
         <div class="row justify-content-center">
-          <h2 class="section-title rt-center mb--50">Our Campus Tour</h2>
+          <h2 class="section-title rt-center mb--50">Experience Campus Life</h2>
           <div class="col-12">
             <div class="rts-video-section height-500 mb--50">
               <a href="https://www.youtube.com/watch?v=Uwq1uiuM_9w"
                 class="rts-video-section-player popup-video video-btn">
                 <i class="fa-sharp fa-solid fa-play"></i>
               </a>
-              <img src="/assets/images/about/video-thumb.jpg" alt="video-bg">
+              <img src="/assets/images/about/video-thumb.jpg" alt="GAPOSA campus video">
             </div>
           </div>
           <div class="col-lg-8">
             <div class="rts-video-section-text rt-center mx-3">
-              <p>Embark on a journey of knowledge, discovery, and growth at Unipix University. Our admissions process is
-                designed to identify bright, motivated individuals who are eager to contribute to our dynamic academic
-                community. Whether you're a recent high school graduate or a transfer student seeking a new academic
-                home, we invite you to explore the possibilities that await you.</p>
-              <a href="campus-life.html" class="mt--15 about-btn rts-nbg-btn btn-arrow">Visit Campus <span><i
-                    class="fa-sharp fa-regular fa-arrow-right"></i></span></a>
+              <p>
+                Discover what it’s like to be a part of the GAPOSA community. From academics to activities, facilities
+                to freedom of expression, this tour gives you a glimpse into student life and how the Student Union
+                supports your journey across campus.
+              </p>
+              <a href="/campus-life" class="mt--15 about-btn rts-nbg-btn btn-arrow">
+                Explore Campus Life
+                <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+              </a>
             </div>
           </div>
         </div>
       </div>
     </section>
+
 
     <!-- Testimonial Start -->
     <div class="rts-testimonial rts-section-padding">
@@ -225,9 +224,9 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
           <div class="col-12">
             <div class="rts-testimonial-box">
               <div class="testimonial-item rt-flex">
-                <div class="testimonial-item-image">
+                <!-- <div class="testimonial-item-image">
                   <img src="/assets/images/testimonial/testimonial-big.jpg" alt="testimonial thumbnail">
-                </div>
+                </div> -->
                 <div class="testimonial-item-content w-570 rt-relative">
                   <div class="swiper swiper-data" data-swiper='{
                                         "slidesPerView":1,
@@ -242,7 +241,7 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
                                 }'>
                     <div class="swiper-wrapper">
                       <!-- single testimonial -->
-                      <div class="swiper-slide">
+                      <!-- <div class="swiper-slide">
                         <div class="single-testimonial">
                           <div class="rt-between mb--50">
                             <div class="rt-icon">
@@ -276,9 +275,9 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- single testimonial -->
-                      <div class="swiper-slide">
+                      <!-- <div class="swiper-slide">
                         <div class="single-testimonial">
                           <div class="rt-between mb--50">
                             <div class="rt-icon">
@@ -312,9 +311,9 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- single testimonial -->
-                      <div class="swiper-slide">
+                      <!-- <div class="swiper-slide">
                         <div class="single-testimonial">
                           <div class="rt-between mb--50">
                             <div class="rt-icon">
@@ -348,18 +347,18 @@ import Breadcrumb from '@/components/layout/Breadcrumb.vue'
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <!-- rts arrow -->
-                  <div class="rts-slider-arrow testimonial-arrow">
+                  <!-- <div class="rts-slider-arrow testimonial-arrow">
                     <div class="rt-slider-btn rt-next">
                       <i class="fa-solid fa-chevron-left"></i>
                     </div>
                     <div class="rt-slider-btn rt-prev">
                       <i class="fa-solid fa-chevron-right"></i>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
               </div>
