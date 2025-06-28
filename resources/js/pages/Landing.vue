@@ -10,6 +10,41 @@ import HeroSlide from '@/components/ui/HeroSlide.vue'
 import EventItem from '@/components/ui/events/EventItem.vue'
 import TabNavigation from '@/components/ui/noticeboard/TabNavigation.vue';
 import NoticeList from '@/components/ui/noticeboard/NoticeList.vue';
+import BlogPost from '@/components/ui/blog/BlogPost.vue'
+import FeaturedBlogPost from '@/components/ui/blog/FeaturedBlogPost.vue'
+import NewsletterBox from '@/components/NewsletterBox.vue'
+
+const featuredPost = {
+  title: 'How the Student Union is Tackling Campus Issues in 2025',
+  author: 'GAPOSA SUG',
+  date: 'June 25, 2025',
+  image: '/assets/images/blog/big-thumb-1.jpg',
+  link: 'blog-details.html'
+}
+
+const otherPosts = [
+  {
+    title: 'Inside the Union: How We Organize and Support Students',
+    author: 'SUG Publicity Officer',
+    date: 'June 24, 2025',
+    image: '/assets/images/blog/small-thumb-1.jpg',
+    link: 'blog-details.html'
+  },
+  {
+    title: 'Campus Safety Tips Every Student Should Know',
+    author: 'Union Welfare Dept',
+    date: 'June 23, 2025',
+    image: '/assets/images/blog/small-thumb-2.jpg',
+    link: 'blog-details.html'
+  },
+  {
+    title: 'Highlights from Our Recent Leadership Summit',
+    author: 'GAPOSA SUG',
+    date: 'June 21, 2025',
+    image: '/assets/images/blog/small-thumb-3.jpg',
+    link: 'blog-details.html'
+  }
+]
 
 const activeTab = ref('latest');
 
@@ -62,18 +97,18 @@ const events = [
     <!-- hero slider start -->
     <div class="rts-hero-slider rt-relative v_2">
       <div class="rts-hero-slider-active swiper swiper-data" data-swiper='{
-      "slidesPerView":1,
-      "effect": "fade",
-      "loop": false,
-      "speed": 1000,
-      "navigation":{
-          "nextEl":".rt-next",
-          "prevEl":".rt-prev"
-      },
-      "autoplay":{
-          "delay":"7000"
-      }
-    }'>
+        "slidesPerView":1,
+        "effect": "fade",
+        "loop": false,
+        "speed": 1000,
+        "navigation":{
+            "nextEl":".rt-next",
+            "prevEl":".rt-prev"
+        },
+        "autoplay":{
+            "delay":"7000"
+        }
+      }'>
         <div class="swiper-wrapper">
           <HeroSlide background="/assets/images/banner/slider__4.jpg" subtitle="Knowledge meets innovation"
             title="Inspiring Minds<br>Shaping Futures"
@@ -97,6 +132,7 @@ const events = [
       </div>
     </div>
     <!-- hero slider  end -->
+
     <!-- get involved start -->
     <section class="rts-application-area rts-section-padding v_2 relative">
       <div class="container">
@@ -201,77 +237,78 @@ const events = [
     <!-- program start -->
     <section class="rts-program v_2 rts-section-padding">
       <!-- <div class="container">
-        <div class="row rt-center">
-          <div class="col-sm-12">
-            <div class="rts__section--wper v__5">
-              <h2 class="rts__section--title">Discover Our Program</h2>
+          <div class="row rt-center">
+            <div class="col-sm-12">
+              <div class="rts__section--wper v__5">
+                <h2 class="rts__section--title">Discover Our Program</h2>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row justify-content-center g-0">
-          <div class="col-lg-4 col-md-10">
-            <div class="rts-program-single">
-              <div class="rts-program-single__content">
-                <div class="rts-program-hover">
-                  <div class="icon">
-                    <img src="/assets/images/program/icon/03.svg" alt="education">
+          <div class="row justify-content-center g-0">
+            <div class="col-lg-4 col-md-10">
+              <div class="rts-program-single">
+                <div class="rts-program-single__content">
+                  <div class="rts-program-hover">
+                    <div class="icon">
+                      <img src="/assets/images/program/icon/03.svg" alt="education">
+                    </div>
+                    <a href="program-single.html" class="program-link">Graduate Admissions</a>
+                    <p>Embark on a journey of knowledge, discovery, and growth at Unipix University.</p>
+                    <a href="program-single.html" class="about-btn rts-nbg-btn btn-arrow 
+  rt-white before-white">Visit Program <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span></a>
                   </div>
-                  <a href="program-single.html" class="program-link">Graduate Admissions</a>
-                  <p>Embark on a journey of knowledge, discovery, and growth at Unipix University.</p>
-                  <a href="program-single.html" class="about-btn rts-nbg-btn btn-arrow 
-rt-white before-white">Visit Program <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span></a>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-4 col-md-10">
-            <div class="rts-program-single ">
-              <div class="rts-program-single__content">
-                <div class="rts-program-hover center-item rt-primary-bg">
-                  <ul class="list-unstyled">
-                    <li class="single-program">
-                      <div class="icon-box">
-                        <img src="/assets/images/icon/04.svg" alt="">
-                      </div>
-                      <a href="program-single.html">Major Programs</a>
-                    </li>
-                    <li class="single-program">
-                      <div class="icon-box">
-                        <img src="/assets/images/icon/05.svg" alt="">
-                      </div>
-                      <a href="program-single.html">Minors Programs</a>
-                    </li>
-                    <li class="single-program">
-                      <div class="icon-box">
-                        <img src="/assets/images/icon/06.svg" alt="">
-                      </div>
-                      <a href="program-single.html">Bachelor’s & Master’s</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-10">
-            <div class="rts-program-single">
-              <div class="rts-program-single__content">
-                <div class="rts-program-hover">
-                  <div class="icon">
-                    <img src="/assets/images/program/icon/01.svg" alt="education">
+            <div class="col-lg-4 col-md-10">
+              <div class="rts-program-single ">
+                <div class="rts-program-single__content">
+                  <div class="rts-program-hover center-item rt-primary-bg">
+                    <ul class="list-unstyled">
+                      <li class="single-program">
+                        <div class="icon-box">
+                          <img src="/assets/images/icon/04.svg" alt="">
+                        </div>
+                        <a href="program-single.html">Major Programs</a>
+                      </li>
+                      <li class="single-program">
+                        <div class="icon-box">
+                          <img src="/assets/images/icon/05.svg" alt="">
+                        </div>
+                        <a href="program-single.html">Minors Programs</a>
+                      </li>
+                      <li class="single-program">
+                        <div class="icon-box">
+                          <img src="/assets/images/icon/06.svg" alt="">
+                        </div>
+                        <a href="program-single.html">Bachelor’s & Master’s</a>
+                      </li>
+                    </ul>
                   </div>
-                  <a href="program-single.html" class="program-link">Online Education</a>
-                  <p>Embark on a journey of knowledge, discovery, and growth at Unipix University.</p>
-                  <a href="program-single.html" class="about-btn rts-nbg-btn btn-arrow 
-rt-white before-white">Visit Program <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span></a>
                 </div>
               </div>
             </div>
-          </div>
+            <div class="col-lg-4 col-md-10">
+              <div class="rts-program-single">
+                <div class="rts-program-single__content">
+                  <div class="rts-program-hover">
+                    <div class="icon">
+                      <img src="/assets/images/program/icon/01.svg" alt="education">
+                    </div>
+                    <a href="program-single.html" class="program-link">Online Education</a>
+                    <p>Embark on a journey of knowledge, discovery, and growth at Unipix University.</p>
+                    <a href="program-single.html" class="about-btn rts-nbg-btn btn-arrow 
+  rt-white before-white">Visit Program <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        </div>
-      </div> -->
+          </div>
+        </div> -->
     </section>
     <!-- program end -->
+
     <!-- student support section -->
     <section class="rts-scholarship rts-scholarship-bg rts-section-height">
       <div class="container">
@@ -366,121 +403,27 @@ rt-white before-white">Visit Program <span><i class="fa-sharp fa-regular fa-arro
         <div class="row justify-content-md-center">
           <div class="col-md-11 col-lg-12">
             <div class="rts-section rts-border-bottom-1 mb--50 pb--20">
-              <h2 class="rts-section-title">
-                Latest From Our Blogs
-              </h2>
-              <p class="rts-section-description">Whether you’re considering a foundation course or an undergraduate
-                academics is a place.</p>
-              <a href="blog.html" class="rts-arrow">View All <span><i
-                    class="fa-sharp fa-regular fa-arrow-right"></i></span></a>
+              <h2 class="rts-section-title">Latest From Our Blogs</h2>
+              <p class="rts-section-description">
+                Get updates, tips, and news relevant to GAPOSA students and the Student Union.
+              </p>
+              <a href="/blog" class="rts-arrow">
+                View All <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+              </a>
             </div>
           </div>
         </div>
+
         <!-- blog content -->
         <div class="row g-5">
           <div class="col-lg-6">
-            <div class="rts-blog-post blog-v-full">
-              <div class="single-blog-post">
-                <a href="blog-details.html" class="blog-thumb">
-                  <img src="/assets/images/blog/big-thumb-1.jpg" alt="blog-thumb">
-                </a>
-                <div class="blog-content">
-                  <div class="post-meta">
-                    <div class="rt-author">
-                      <span>
-                        <i class="fa-light fa-user"></i>
-                      </span>
-                      <a href="#">Samira Khan</a>
-                    </div>
-                    <div class="rt-date">
-                      <span><i class="fal fa-calendar"></i></span>
-                      <span>November 28, 2023</span>
-                    </div>
-                  </div>
-                  <a href="blog-detail.html" class="post-title">
-                    Interactive Worksheets: Printable worksheets have come to life!
-                  </a>
-                </div>
-              </div>
-            </div>
+            <!-- Featured blog -->
+            <FeaturedBlogPost :post="featuredPost" />
           </div>
+
           <div class="col-lg-6">
             <div class="rts-blog-post">
-              <!-- single blog -->
-              <div class="single-blog-post">
-                <div class="blog-thumb">
-                  <a href="blog-details.html">
-                    <img src="/assets/images/blog/small-thumb-1.jpg" alt="post-thumbnail">
-                  </a>
-                </div>
-                <div class="blog-content">
-                  <div class="post-meta">
-                    <div class="rt-author">
-                      <span>
-                        <i class="fa-light fa-user"></i>
-                      </span>
-                      <a href="#">Samira Khan</a>
-                    </div>
-                    <div class="rt-date">
-                      <span><i class="fal fa-calendar"></i></span>
-                      <span>November 28, 2023</span>
-                    </div>
-                  </div>
-                  <a href="blog-details.html" class="post-title">
-                    Classroom community-building It’s ok to try something new!
-                  </a>
-                </div>
-              </div>
-              <!-- single blog -->
-              <div class="single-blog-post">
-                <div class="blog-thumb">
-                  <a href="blog-details.html">
-                    <img src="/assets/images/blog/small-thumb-2.jpg" alt="post-thumbnail">
-                  </a>
-                </div>
-                <div class="blog-content">
-                  <div class="post-meta">
-                    <div class="rt-author">
-                      <span>
-                        <i class="fa-light fa-user"></i>
-                      </span>
-                      <a href="#">Samira Khan</a>
-                    </div>
-                    <div class="rt-date">
-                      <span><i class="fal fa-calendar"></i></span>
-                      <span>November 28, 2023</span>
-                    </div>
-                  </div>
-                  <a href="blog-details.html" class="post-title">
-                    Those inequalities are inequalities that occur within households
-                  </a>
-                </div>
-              </div>
-              <!-- single blog -->
-              <div class="single-blog-post">
-                <div class="blog-thumb">
-                  <a href="blog-details.html">
-                    <img src="/assets/images/blog/small-thumb-3.jpg" alt="post-thumbnail">
-                  </a>
-                </div>
-                <div class="blog-content">
-                  <div class="post-meta">
-                    <div class="rt-author">
-                      <span>
-                        <i class="fa-light fa-user"></i>
-                      </span>
-                      <a href="#">Samira Khan</a>
-                    </div>
-                    <div class="rt-date">
-                      <span><i class="fal fa-calendar"></i></span>
-                      <span>November 28, 2023</span>
-                    </div>
-                  </div>
-                  <a href="blog-details.html" class="post-title">
-                    After decades of improvement, health rates on worrying
-                  </a>
-                </div>
-              </div>
+              <BlogPost v-for="(post, index) in otherPosts" :key="index" :post="post" />
             </div>
           </div>
         </div>
@@ -489,27 +432,7 @@ rt-white before-white">Visit Program <span><i class="fa-sharp fa-regular fa-arro
     <!-- blog area end -->
 
     <!-- newsletter -->
-    <div class="rts-newsletter v_1 rts-cta-background rts__white">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="rts-newsletter-box" style="background-image: url(/assets/images/newsletter/bg-1.jpg);">
-              <div class="rts-newsletter-box-content">
-                <h4 class="newsletter-title">Don’t Miss Awesome Story From Our Alumni
-                </h4>
-                <div class="newsletter-form w-530">
-                  <form action="#">
-                    <input type="email" name="subscription" id="subscription" placeholder="Enter Your mail" required>
-                    <button type="submit" class="rts-nbg-btn btn-arrow">Subscribe <span><i
-                          class="fa-sharp fa-regular fa-arrow-right"></i></span></button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <NewsletterBox />
     <!-- newsletter end -->
 
     <!-- footer start -->
