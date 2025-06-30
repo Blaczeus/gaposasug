@@ -142,3 +142,55 @@ export const blogSidebarData = {
         date: 'November 28, 2023',
     },
 };
+
+export const alumniEvents = [
+    {
+        title: 'GAPOSA Alumni Networking Dinner 2025',
+        date: 'February 22, 2025',
+        time: '6:00 pm',
+        location: 'GAPOSA Alumni Center, Ijebu-Ode',
+        image: '/assets/images/campus/event/01.jpg',
+        slug: 'gaposa-alumni-networking-dinner-2025',
+    },
+    {
+        title: 'Career Advancement Workshop for Recent Graduates',
+        date: 'March 10, 2025',
+        time: '10:00 am',
+        location: 'Multipurpose Hall, GAPOSA Campus',
+        image: '/assets/images/campus/event/02.jpg',
+        slug: 'career-advancement-workshop-2025',
+    },
+    {
+        title: 'Alumni Homecoming & Cultural Festival',
+        date: 'April 12, 2025',
+        time: '12:00 pm',
+        location: 'GAPOSA Sports Complex',
+        image: '/assets/images/campus/event/03.jpg',
+        slug: 'alumni-homecoming-cultural-festival-2025',
+    },
+    {
+        title: 'GAPOSA Mentorship Forum & Roundtable',
+        date: 'May 5, 2025',
+        time: '9:30 am',
+        location: 'GAPOSA Lecture Theatre A',
+        image: '/assets/images/campus/event/04.jpg',
+        slug: 'gaposa-mentorship-forum-2025',
+    },
+    {
+        title: 'Alumni Business & Innovation Showcase',
+        date: 'June 1, 2025',
+        time: '11:00 am',
+        location: 'GAPOSA ICT Auditorium',
+        image: '/assets/images/campus/event/05.jpg',
+        slug: 'alumni-business-innovation-showcase-2025',
+    },
+    {
+        title: 'SUG Innovation & Development Summit 2025',
+        date: 'July 15, 2025',
+        time: '10:30 am',
+        location: 'GAPOSA Multipurpose Hall',
+        image: '/assets/images/campus/event/06.jpg',
+        slug: 'sug-innovation-development-summit-2025',
+    },
+];
+  

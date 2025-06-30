@@ -12,43 +12,74 @@
 
 ========================================*/
 /* Default  */
-@import url("vendor/canela-font.css");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Merriweather:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&amp;display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rufina:wght@400;700&amp;display=swap");
+
 :root {
-  --rt-theme: #09A24F;
-  --rt-primary: #890C25;
-  --rt-primary-1: #B71A34;
-  --rt-primary-2: #890C25;
-  --rt-secondary: #110C2D;
-  --rt-footer: #181818;
+  /* GAPOSA Custom Brand Colors */
+    --gaposa-blue: #192836;
+    --gaposa-green: #008809;
+    --gaposa-red: #B71A34;
+  
+    /* Overridden Theme Colors */
+    --rt-theme: var(--gaposa-green);
+    /* Used as the main theme highlight */
+  
+    /* Overall Theme Accent */
+    --rt-primary: var(--gaposa-red);
+    /* Used for main buttons, icons */
+  
+    /* Buttons and CTAs */
+    --rt-primary-1: #D62B45;
+    /* Slightly lighter red for hover/focus */
+  
+    /* Slightly Lighter Red */
+    --rt-primary-2: var(--gaposa-red);
+    /* Used in other red elements */
+  
+    /* Secondary/Main Dark Background */
+    --rt-secondary: var(--gaposa-blue);
+    /* For headings, text, sections */
+  
+    /* Navbar/Footer/CTA Backgrounds */
+    --rt-footer: var(--gaposa-blue);
+    /* For footer and dark areas */
+  
+    /* Link/Button Hover Color */
+    --rt-hover: #D62B45;
+
+
+  /* Button hover effect */
+
   --rt-body: #737477;
-  --rt-heading: #262626;
-  --rt-white:#fff;
-  --rt-rating: var(--rt-primary);
-  --rt-border: #D9D9D9;
-  --rt-line: #eee;
-  --rt-hover: #AF0E2E;
-  --copyright-border: #242424;
-  --rt-radius:3px;
-  --rt-radius-none: none;
-  --rt-none: none;
-  --footer-bg: #181818;
-  --light-white: #f6f6f6;
-  --color-success: #3EB75E;
-  --color-danger: #FF0003;
-  --color-warning: #FF8F3C;
-  --color-info: #1BA2DB;
-  --color-facebook: #3B5997;
-  --color-twitter: #1BA1F2;
-  --color-youtube: #ED4141;
-  --color-linkedin: #0077B5;
-  --color-pinterest: #E60022;
-  --color-instagram: #C231A1;
-  --color-vimeo: #00ADEF;
-  --color-twitch: #6441A3;
-  --color-discord: #7289da;
+    --rt-heading: #262626;
+    --rt-white: #fff;
+    --rt-rating: var(--rt-primary);
+    --rt-border: #D9D9D9;
+    --rt-line: #eee;
+    --copyright-border: #242424;
+    --rt-radius: 3px;
+    --rt-radius-none: none;
+    --rt-none: none;
+    --footer-bg: var(--gaposa-blue);
+    --light-white: #f6f6f6;
+    --color-success: #3EB75E;
+    --color-danger: #FF0003;
+    --color-warning: #FF8F3C;
+    --color-info: #1BA2DB;
+    --color-facebook: #3B5997;
+    --color-twitter: #1BA1F2;
+    --color-youtube: #ED4141;
+    --color-linkedin: #0077B5;
+    --color-pinterest: #E60022;
+    --color-instagram: #C231A1;
+    --color-vimeo: #00ADEF;
+    --color-twitch: #6441A3;
+    --color-discord: #7289da;
+
+  /* Font Weights */
   --f-light: 300;
   --f-regular: 400;
   --f-medium: 500;
@@ -56,13 +87,17 @@
   --f-bold: 700;
   --f-extra-bold: 800;
   --f-black: 900;
+
+  /* Motion + Fonts */
   --translate: translate(-50%, -50%);
   --transition: all 0.4s ease;
-  --font-primary: "Inter", sans-serif;
-  --font-secondary: "Canela trial";
+  --font-primary: 'Manrope', sans-serif;
+  --font-secondary: 'Merriweather', serif;
   --font-hind: "Hind", sans-serif;
   --fontawesome: "fontawesome", sans-serif;
   --rufina: "Rufina", serif;
+
+  /* Typography Sizes */
   --line-height-b1: 26px;
   --line-height-b2: 26px;
   --line-height-b3: 1.7;
@@ -16167,7 +16202,7 @@ body.index-sc h1, body.index-sc h2, body.index-sc h3, body.index-sc h4, body.ind
 }
 
 .rts__primary__bg-2 {
-  background: #890C25;
+  background: #B71A34;
 }
 
 .save-from-hidden span {
@@ -16947,7 +16982,7 @@ body.index-sc h1, body.index-sc h2, body.index-sc h3, body.index-sc h4, body.ind
 }
 .rts-btn.btn-primary-white {
   background: #fff !important;
-  color: #110C2D;
+  color: #192836;
   border: 1px solid transparent;
 }
 .rts-btn.btn-primary-white:hover {
@@ -26077,3 +26112,4 @@ body.index-sc h1, body.index-sc h2, body.index-sc h3, body.index-sc h4, body.ind
   top: 0;
 }
 /*# sourceMappingURL=../maps/style.css.map */
+

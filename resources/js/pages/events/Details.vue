@@ -7,8 +7,9 @@ import Footer from '@/components/layout/Footer.vue'
 import SearchBar from '@/components/ui/SearchBar.vue'
 import Breadcrumb from '@/components/layout/Breadcrumb.vue'
 import SpeakerCard from '@/components/ui/speakers/SpeakerCard.vue'
-import { speakers, events } from '@/data/dummyData'
-import { usePage } from '@inertiajs/vue3'
+import { speakers, events, alumniEvents } from '@/data/dummyData'
+
+const allEvents = [...events, ...alumniEvents];
 
 const props = defineProps({
   slug: {
@@ -16,7 +17,7 @@ const props = defineProps({
   },
 })
 
-const event = events.find((e) => e.slug === props.slug);
+const event = allEvents.find((e) => e.slug === props.slug);
 
 </script>
 
