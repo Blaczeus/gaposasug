@@ -193,4 +193,43 @@ export const alumniEvents = [
         slug: 'sug-innovation-development-summit-2025',
     },
 ];
+
+export const recentGraduates = [
+    {
+        name: 'Adesina Oluwaseun',
+        year: 2024,
+        image: '/assets/images/campus/gallery/01.jpg',
+        slug: 'adesina-oluwaseun-2024',
+    },
+    {
+        name: 'Chinyere Okoro',
+        year: 2024,
+        image: '/assets/images/campus/gallery/02.jpg',
+        slug: 'chinyere-okoro-2024',
+    },
+    {
+        name: 'Tobi Lawal',
+        year: 2023,
+        image: '/assets/images/campus/gallery/03.jpg',
+        slug: 'tobi-lawal-2023',
+    },
+    {
+        name: 'Fatima Bello',
+        year: 2023,
+        image: '/assets/images/campus/gallery/04.jpg',
+        slug: 'fatima-bello-2023',
+    },
+    {
+        name: 'Emeka Uche',
+        year: 2024,
+        image: '/assets/images/campus/gallery/05.jpg',
+        slug: 'emeka-uche-2024',
+    },
+    {
+        name: 'Blessing Adebayo',
+        year: 2023,
+        image: '/assets/images/campus/gallery/06.jpg',
+        slug: 'blessing-adebayo-2023',
+    },
+];
   

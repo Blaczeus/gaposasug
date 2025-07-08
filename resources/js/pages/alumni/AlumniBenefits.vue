@@ -47,30 +47,6 @@ import { alumniEvents } from '@/data/dummyData'
 
     <!-- alumni banner end -->
 
-    <!-- upcoming event -->
-    <section class="rts__section rts-section-padding rts__light">
-      <div class="container">
-        <div class="row">
-          <div class="rts__section--wrapper">
-            <div class="rts__section--wrapper--left">
-              <h2 class="rts__section--title text-capitalize">Upcoming Alumni Events</h2>
-            </div>
-            <div class="rts__section--link">
-              <a href="event.html" class="rts-nbg-btn btn-arrow">View All<span><i
-                    class="fa-sharp fa-regular fa-arrow-right"></i>
-                </span></a>
-            </div>
-          </div>
-        </div>
-        <!-- event content -->
-        <div class="row g-5">
-          <AlumniEventItem v-for="(event, index) in alumniEvents" :key="index" :event="event" />
-        </div>
-      </div>
-    </section>
-    <!-- upcoming event end -->
-
-
     <!-- Alumni Core Benefits Section -->
     <section class="rts-about-university rts-section-padding">
       <div class="container">
@@ -78,8 +54,7 @@ import { alumniEvents } from '@/data/dummyData'
           <!-- Image & Overlay Text -->
           <div class="col-lg-7 col-xl-8 col-md-11 position-relative">
             <div class="alumni-overlay-container h-100">
-              <img src="/assets/images/alumni/01.jpg" alt="Stay Connected with GAPOSA"
-                class="img-fluid object-cover" />
+              <img src="/assets/images/alumni/01.jpg" alt="Stay Connected with GAPOSA" class="img-fluid object-cover" />
               <div class="alumni-overlay-content">
                 <h3 class="overlay-title">Stay Connected with GAPOSA</h3>
                 <p class="overlay-description">Your journey doesn't end at graduation — it evolves. Stay involved and
@@ -89,8 +64,8 @@ import { alumniEvents } from '@/data/dummyData'
           </div>
 
           <!-- Right Side: Core Benefits Boxes -->
-          <div class="col-lg-5 col-xl-4 col-md-11 d-flex flex-column justify-content-between">
-            <div class="rts-about-details h-100 d-flex flex-column justify-content-between">
+          <div class="col-lg-5 col-xl-4 col-md-11 d-flex flex-col justify-between">
+            <div class="rts-about-details h-100 d-flex flex-col space-y-4">
               <div class="single-about-info gaposa-green flex-fill">
                 <a :href="route('alumni.support')" class="text-decoration-none text-white d-block h-100">
                   <div class="content">
@@ -127,8 +102,6 @@ import { alumniEvents } from '@/data/dummyData'
                 </a>
               </div>
             </div>
-
-
           </div>
         </div>
 
@@ -142,183 +115,28 @@ import { alumniEvents } from '@/data/dummyData'
       </div>
     </section>
 
-
-
-    <!-- reunion gallery -->
-    <div class="rts-gallery rts__light rts-section-padding ">
-      <div class="container">
-        <div class="row">
-          <div class="rts__section--wrapper v__5">
-            <h2 class="rts__section--title">University Reunion Gallery</h2>
-          </div>
-        </div>
-        <div class="gallery-area">
-          <div class="row g-5">
-            <!-- single gallery item -->
-            <div class="col-lg-4 col-md-6">
-              <div class="single-gallery">
-                <a href="/assets/images/campus/gallery/2x1.jpg" class="single-gallery__item">
-                  <img src="/assets/images/campus/gallery/01.jpg" alt="gallery">
-                  <div class="single-gallery__icon">
-                    <i class="fa-light fa-circle-plus"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <!-- single gallery item -->
-            <div class="col-lg-4 col-md-6">
-              <div class="single-gallery">
-                <a href="/assets/images/campus/gallery/2x2.jpg" class="single-gallery__item">
-                  <img src="/assets/images/campus/gallery/02.jpg" alt="gallery">
-                  <div class="single-gallery__icon">
-                    <i class="fa-light fa-circle-plus"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <!-- single gallery item -->
-            <div class="col-lg-4 col-md-6">
-              <div class="single-gallery">
-                <a href="/assets/images/campus/gallery/2x3.jpg" class="single-gallery__item">
-                  <img src="/assets/images/campus/gallery/03.jpg" alt="gallery">
-                  <div class="single-gallery__icon">
-                    <i class="fa-light fa-circle-plus"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <!-- single gallery item -->
-            <div class="col-lg-4 col-md-6">
-              <div class="single-gallery">
-                <a href="/assets/images/campus/gallery/2x4.jpg" class="single-gallery__item">
-                  <img src="/assets/images/campus/gallery/04.jpg" alt="gallery">
-                  <div class="single-gallery__icon">
-                    <i class="fa-light fa-circle-plus"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <!-- single gallery item -->
-            <div class="col-lg-4 col-md-6">
-              <div class="single-gallery">
-                <a href="/assets/images/campus/gallery/2x5.jpg" class="single-gallery__item">
-                  <img src="/assets/images/campus/gallery/05.jpg" alt="gallery">
-                  <div class="single-gallery__icon">
-                    <i class="fa-light fa-circle-plus"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <!-- single gallery item -->
-            <div class="col-lg-4 col-md-6">
-              <div class="single-gallery">
-                <a href="/assets/images/campus/gallery/2x6.jpg" class="single-gallery__item">
-                  <img src="/assets/images/campus/gallery/06.jpg" alt="gallery">
-                  <div class="single-gallery__icon">
-                    <i class="fa-light fa-circle-plus"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- reunion gallery end -->
-    <!-- event speaker -->
-    <div class="rts-event-speaker rts-section-padding">
+    <!-- upcoming event -->
+    <section class="rts__section rts-section-padding rts__light">
       <div class="container">
         <div class="row">
           <div class="rts__section--wrapper">
-            <h2 class="rts__section--title text-capitalize">Event Speakers</h2>
+            <div class="rts__section--wrapper--left">
+              <h2 class="rts__section--title text-capitalize">Upcoming Alumni Events</h2>
+            </div>
+            <div class="rts__section--link">
+              <a href="event.html" class="rts-nbg-btn btn-arrow">View All<span><i
+                    class="fa-sharp fa-regular fa-arrow-right"></i>
+                </span></a>
+            </div>
           </div>
         </div>
-        <!-- event speaker list -->
+        <!-- event content -->
         <div class="row g-5">
-          <!-- single speaker item -->
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="event-speaker">
-              <div class="event-speaker__details">
-                <div class="speaker-thumb">
-                  <img src="/assets/images/speaker/01.jpg" alt="speaker-thumb">
-                  <div class="speaker-social-link">
-                    <a href="#"><i class="fa-brands fa-skype"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                  </div>
-                </div>
-                <div class="speaker-meta">
-                  <h5 class="speaker__name"><a href="faculty-details.html">Rick Zonson</a></h5>
-                  <span class="designation">Assistant Teacher</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- single speaker item end -->
-          <!-- single speaker item -->
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="event-speaker">
-              <div class="event-speaker__details">
-                <div class="speaker-thumb">
-                  <img src="/assets/images/speaker/02.jpg" alt="speaker-thumb">
-                  <div class="speaker-social-link">
-                    <a href="#"><i class="fa-brands fa-skype"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                  </div>
-                </div>
-                <div class="speaker-meta">
-                  <h5 class="speaker__name"><a href="faculty-details.html">Thomas Fred</a></h5>
-                  <span class="designation">Teacher</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- single speaker item end -->
-          <!-- single speaker item -->
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="event-speaker">
-              <div class="event-speaker__details">
-                <div class="speaker-thumb">
-                  <img src="/assets/images/speaker/03.jpg" alt="speaker-thumb">
-                  <div class="speaker-social-link">
-                    <a href="#"><i class="fa-brands fa-skype"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                  </div>
-                </div>
-                <div class="speaker-meta">
-                  <h5 class="speaker__name"><a href="faculty-details.html">Albert Mack</a></h5>
-                  <span class="designation">Head Teacher</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- single speaker item end -->
-          <!-- single speaker item -->
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="event-speaker">
-              <div class="event-speaker__details">
-                <div class="speaker-thumb">
-                  <img src="/assets/images/speaker/04.jpg" alt="speaker-thumb">
-                  <div class="speaker-social-link">
-                    <a href="#"><i class="fa-brands fa-skype"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                  </div>
-                </div>
-                <div class="speaker-meta">
-                  <h5 class="speaker__name"><a href="faculty-details.html">Micheal Alfred</a></h5>
-                  <span class="designation">Assistant Teacher</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- single speaker item end -->
+          <AlumniEventItem v-for="(event, index) in alumniEvents" :key="index" :event="event" />
         </div>
       </div>
-    </div>
-    <!-- event speaker end -->
+    </section>
+    <!-- upcoming event end -->
 
     <!-- footer start -->
     <Footer />
