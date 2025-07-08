@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User; // Or Alumni model if separate
+use App\Models\User;
+use App\Models\Alumni;
+use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
 
 class AlumniAuthController extends Controller
@@ -26,7 +28,7 @@ class AlumniAuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'matric_number' => 'required|string|max:50|unique:users,matric_number',
+            'matric_number' => 'required|string|max:50|unique:students,matric_number',
             'department' => 'required|string|max:255',
             'graduation_year' => 'required|digits:4|integer|min:2000|max:' . date('Y'),
             'password' => 'required|confirmed|min:8',
@@ -35,10 +37,14 @@ class AlumniAuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'matric_number' => $request->matric_number,
-            'department' => $request->department,
-            'graduation_year' => $request->graduation_year,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+        
+        Alumni::create([
+            'user_id' => $user->id,
+            'graduation_year' => $request->graduation_year,
+            'department' => $request->department,
         ]);
 
         Auth::login($user);

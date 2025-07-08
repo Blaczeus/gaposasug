@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Auth\AlumniAuthController;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -13,21 +14,30 @@ Route::get('/blog/{slug}', [PageController::class, 'blogDetails'])->name('blog.d
 Route::get('/student-voice', [PageController::class, 'studentVoice'])->name('studentVoice');
 
 // Alumni
-Route::prefix('alumni')->group(function () {
-    Route::get('/benefits', fn () => Inertia::render('alumni/AlumniBenefits'))->name('alumni.benefits');
-    Route::get('/graduate-support', fn() => Inertia::render('alumni/GraduateSupport'))->name('alumni.support');
-    Route::get('/networking-events', fn() => Inertia::render('alumni/NetworkingEvents'))->name('alumni.events');
-    Route::get('/recent-graduates', fn() => Inertia::render('alumni/RecentGraduates'))->name('alumni.recent');
-    Route::get('/mentorship', fn() => Inertia::render('alumni/Mentorship'))->name('alumni.mentorship');
-    Route::get('/account', fn() => Inertia::render('alumni/AlumniAccount'))->name('alumni.account');
+Route::prefix('alumni')->name('alumni.')->group(function () {
+    Route::get('/benefits', fn () => Inertia::render('alumni/AlumniBenefits')->rootView('template'))->name('benefits');
+    Route::get('/graduate-support', fn () => Inertia::render('alumni/GraduateSupport')->rootView('template'))->name('support');
+    Route::get('/networking-events', fn () => Inertia::render('alumni/NetworkingEvents')->rootView('template'))->name('events');
+    Route::get('/recent-graduates', fn () => Inertia::render('alumni/RecentGraduates')->rootView('template'))->name('recent');
+    Route::get('/mentorship', fn () => Inertia::render('alumni/Mentorship')->rootView('template'))->name('mentorship');
+    Route::get('/account', fn () => Inertia::render('alumni/AlumniAccount')->rootView('template'))->middleware('auth')->name('account');
+
+    Route::name('auth.')->middleware(['guest', 'use-template-root'])->group(function () {
+        Route::get('/login', [AlumniAuthController::class, 'showLoginForm'])->name('login');
+        Route::get('/register', [AlumniAuthController::class, 'showRegisterForm'])->name('register');
+        Route::post('/login', [AlumniAuthController::class, 'login']);
+        Route::post('/register', [AlumniAuthController::class, 'register']);
+    });
 });
+
 
 // Support
 Route::prefix('support')->group(function () {
-    Route::get('/housing', fn () => Inertia::render('Support/HousingIssue'))->name('support.housing');
-    Route::get('/academic', fn() => Inertia::render('Support/Academic'))->name('support.academic');
-    Route::get('/report', fn() => Inertia::render('Support/Report'))->name('support.report');
+    Route::get('/housing', fn () => Inertia::render('Support/HousingIssue')->rootView('template'))->name('support.housing');
+    Route::get('/academic', fn () => Inertia::render('Support/Academic')->rootView('template'))->name('support.academic');
+    Route::get('/report', fn () => Inertia::render('Support/Report')->rootView('template'))->name('support.report');
 });
+
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');

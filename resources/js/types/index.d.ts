@@ -33,6 +33,24 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    role: 'student' | 'alumni' | 'admin';
+
+    // Optional relationships (loaded from backend conditionally)
+    student?: {
+        matric_number: string;
+        department: string;
+        entry_year: string;
+        graduation_year: string;
+    };
+    alumni?: {
+        graduation_year: string;
+        department: string;
+        current_job?: string;
+        linkedin_profile?: string;
+    };
+    admin?: {
+        position?: string;
+    };
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
