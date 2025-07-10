@@ -70,8 +70,8 @@ class RegisteredUserController extends Controller
 
             // Optionally restrict admin emails to official domain
             if (!str_ends_with($request->email, '@gaposa.edu.ng')) {
-                abort(403, 'Unauthorized admin registration');
-            }
+                return back()->withErrors(['email' => 'Only admins are allowed.']);
+            }            
             break;
     }
 
@@ -110,9 +110,6 @@ class RegisteredUserController extends Controller
 
     // Redirect the user based on his/her role
     return match ($user->role) {
-        'student' => redirect()->route('student.dashboard'),
-        'alumni' => redirect()->route('alumni.dashboard'),
-        'admin' => redirect()->route('admin.dashboard'),
         default => redirect()->route('dashboard'),
     };
 }
