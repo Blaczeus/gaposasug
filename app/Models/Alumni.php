@@ -10,6 +10,8 @@ class Alumni extends Model
 {
     use HasFactory;
 
+    protected $table = 'alumnis'; // Use 'alumnis' as the table name
+
     protected $fillable = [
         'user_id',
         'graduation_year',

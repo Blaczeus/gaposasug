@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AlumniAuthController;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -38,10 +39,8 @@ Route::prefix('support')->group(function () {
     Route::get('/report', fn () => Inertia::render('Support/Report')->rootView('template'))->name('support.report');
 });
 
-
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Dashboard
+Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth', 'verified')->name('dashboard');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -10,7 +10,14 @@ interface Props {
 }
 
 const handleLogout = () => {
-    router.flushAll();
+    router.post(route('logout'), {}, {
+        preserveScroll: false,
+        preserveState: false,
+        replace: true,
+        onSuccess: () => {
+            window.location.reload(); // full refresh to apply correct layout
+        },
+    });
 };
 
 defineProps<Props>();
@@ -26,16 +33,25 @@ defineProps<Props>();
     <DropdownMenuGroup>
         <DropdownMenuItem :as-child="true">
             <Link class="block w-full" :href="route('profile.edit')" prefetch as="button">
-                <Settings class="mr-2 h-4 w-4" />
-                Settings
+            <Settings class="mr-2 h-4 w-4" />
+            Settings
             </Link>
         </DropdownMenuItem>
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
     <DropdownMenuItem :as-child="true">
-        <Link class="block w-full" method="post" :href="route('logout')" @click="handleLogout" as="button">
-            <LogOut class="mr-2 h-4 w-4" />
-            Log out
+        <Link class="block w-full" 
+            :href="route('logout')" 
+            method="post" 
+            as="button" 
+            :data="{ forceFormReset: true }"
+            preserveScroll 
+            preserveState 
+            @click="handleLogout"
+            data-turbo="false"
+        >
+        <LogOut class="mr-2 h-4 w-4" />
+        Log out
         </Link>
     </DropdownMenuItem>
 </template>
