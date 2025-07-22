@@ -33,6 +33,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone', // Added phone attribute for user contact
         'password',
         'role', // Added role attribute to tell between a student, admin or alumni
     ];

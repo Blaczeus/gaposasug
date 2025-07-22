@@ -16,8 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('matric_number')->unique();
             $table->string('department');
-            $table->year('entry_year')->nullable();
-            $table->year('graduation_year')->nullable();
+            $table->string('level');
             $table->timestamps();
         });        
     }

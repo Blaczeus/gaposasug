@@ -18,6 +18,7 @@ const form = useForm({
     email: '',
     password: '',
     remember: false,
+    role: 'student',
 });
 
 const submit = () => {
@@ -37,8 +38,21 @@ const submit = () => {
 
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
+                <!-- Role Selection -->
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="role" class="text-white">Login As</Label>
+                    <select id="role" v-model="form.role"
+                        class="flex h-9 w-full rounded-md bg-white/90 text-black dark:bg-neutral-800 dark:text-white border border-gray-300 px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
+                        <option value="student">Student</option>
+                        <option value="alumni">Alumni</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <InputError :message="form.errors.role" />
+                </div>
+
+                <!-- Email -->
+                <div class="grid gap-2">
+                    <Label for="email" class="text-white">Email address</Label>
                     <Input
                         id="email"
                         type="email"
@@ -48,14 +62,21 @@ const submit = () => {
                         autocomplete="email"
                         v-model="form.email"
                         placeholder="email@example.com"
+                        class="bg-white/90 text-black dark:bg-neutral-800 dark:text-white"
                     />
                     <InputError :message="form.errors.email" />
                 </div>
 
+                <!-- Password -->
                 <div class="grid gap-2">
                     <div class="flex items-center justify-between">
-                        <Label for="password">Password</Label>
-                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
+                        <Label for="password" class="text-white">Password</Label>
+                        <TextLink
+                            v-if="canResetPassword"
+                            :href="route('password.request')"
+                            class="text-sm text-white"
+                            :tabindex="5"
+                        >
                             Forgot password?
                         </TextLink>
                     </div>
@@ -67,26 +88,37 @@ const submit = () => {
                         autocomplete="current-password"
                         v-model="form.password"
                         placeholder="Password"
+                        class="bg-white/90 text-black dark:bg-neutral-800 dark:text-white"
                     />
                     <InputError :message="form.errors.password" />
                 </div>
 
+                <!-- Remember me -->
                 <div class="flex items-center justify-between">
-                    <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" v-model="form.remember" :tabindex="3" />
+                    <Label for="remember" class="flex items-center space-x-3 text-white">
+                        <Checkbox class=" border-white" id="remember" v-model="form.remember" :tabindex="3" />
                         <span>Remember me</span>
                     </Label>
                 </div>
 
-                <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="form.processing">
+                <!-- Submit Button -->
+                <Button
+                    type="submit"
+                    class="mt-4 w-full bg-white/90 text-black dark:bg-neutral-800 dark:text-white"
+                    :tabindex="4"
+                    :disabled="form.processing"
+                >
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                     Log in
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <!-- Footer Text -->
+            <div class="text-center text-sm text-white">
                 Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
+                <TextLink :href="route('register')" :tabindex="5" class="text-white underline underline-offset-4">
+                    Sign up
+                </TextLink>
             </div>
         </form>
     </AuthBase>

@@ -112,7 +112,7 @@ const events = [
         <div class="swiper-wrapper">
           <HeroSlide background="/assets/images/banner/slider__1.png" subtitle="Knowledge meets innovation"
             title="Inspiring Minds<br>Shaping Futures"
-            description="Empowering GAPOSA students to thrive through bold leadership and unified representation."
+            description="Empowering GAPOSA students to thrive through bold leadership and unified representation." 
             ctaLink="/academic" ctaText="View Our Program" />
           <HeroSlide background="/assets/images/banner/slider__2.png" subtitle="Driven by Purpose"
             title="Your Voice.<br>Your Union."

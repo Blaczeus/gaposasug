@@ -33,7 +33,21 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+        if ($user && $user instanceof \Illuminate\Database\Eloquent\Model) {
+            $user->load([
+                match ($user->role) {
+                    'student' => 'student',
+                    'alumni' => 'alumni',
+                    'admin' => 'admin',
+                    default => [],
+                }
+            ]);
+        }
+
+        return redirect()->intended(route('dashboard', absolute: false))->with([
+            'user' => $user, 
+        ]);
     }
 
     /**

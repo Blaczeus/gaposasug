@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Enums\StudentLevel;
 
 class Student extends Model
 {
@@ -14,8 +15,11 @@ class Student extends Model
         'user_id',
         'matric_number',
         'department',
-        'entry_year',
-        'graduation_year',
+        'level',
+    ];
+
+    protected $casts = [
+        'level' => StudentLevel::class,
     ];
 
     public function user()

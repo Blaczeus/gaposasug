@@ -16,8 +16,6 @@ class Alumni extends Model
         'user_id',
         'graduation_year',
         'department',
-        'current_job',
-        'linkedin_profile',
     ];
 
     public function user()

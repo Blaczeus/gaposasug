@@ -16,8 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('graduation_year');
             $table->string('department');
-            $table->string('current_job')->nullable();
-            $table->string('linkedin_profile')->nullable();
             $table->timestamps();
         });        
     }

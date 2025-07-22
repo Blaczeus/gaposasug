@@ -34,8 +34,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <li><strong>Email:</strong> {{ user.email }}</li>
                                 <li><strong>Matric No:</strong> {{ user.student?.matric_number }}</li>
                                 <li><strong>Department:</strong> {{ user.student?.department }}</li>
-                                <li><strong>Entry Year:</strong> {{ user.student?.entry_year }}</li>
-                                <li><strong>Graduation Year:</strong> {{ user.student?.graduation_year }}</li>
+                                <li><strong>Entry Year:</strong> {{ user.student?.phone }}</li>
+                                <li><strong>Graduation Year:</strong> {{ user.student?.level }}</li>
                             </ul>
                         </PlaceholderPattern>
                     </div>

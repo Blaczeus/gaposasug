@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Auth\AlumniAuthController;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -22,13 +21,6 @@ Route::prefix('alumni')->name('alumni.')->group(function () {
     Route::get('/recent-graduates', fn () => Inertia::render('alumni/RecentGraduates')->rootView('template'))->name('recent');
     Route::get('/mentorship', fn () => Inertia::render('alumni/Mentorship')->rootView('template'))->name('mentorship');
     Route::get('/account', fn () => Inertia::render('alumni/AlumniAccount')->rootView('template'))->middleware('auth')->name('account');
-
-    Route::name('auth.')->middleware(['guest', 'use-template-root'])->group(function () {
-        Route::get('/login', [AlumniAuthController::class, 'showLoginForm'])->name('login');
-        Route::get('/register', [AlumniAuthController::class, 'showRegisterForm'])->name('register');
-        Route::post('/login', [AlumniAuthController::class, 'login']);
-        Route::post('/register', [AlumniAuthController::class, 'register']);
-    });
 });
 
 
@@ -41,6 +33,12 @@ Route::prefix('support')->group(function () {
 
 // Dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth', 'verified')->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return Inertia::render('dashboard/Home')->rootView('dashboard');
+    })->name('admin.dashboard');
+});
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
