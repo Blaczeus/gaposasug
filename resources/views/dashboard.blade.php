@@ -44,7 +44,9 @@
     <link rel="stylesheet" href="{{ asset('dashboard-assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard-assets/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard-assets/fonts/flaticon.css') }}">
-    <link rel="stylesheet" href="{{ asset('dashboard-assets/css/fullcalendar.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('dashboard-assets/css/fullcalendar.min.css') }}"> -->
+    <!-- FullCalendar v6+ compiled CSS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js'></script>
     <link rel="stylesheet" href="{{ asset('dashboard-assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard-assets/style.css') }}">
 
@@ -62,6 +64,7 @@
     <script src="{{ asset('dashboard-assets/js/jquery.scrollUp.min.js') }}"></script>
     <script src="{{ asset('dashboard-assets/js/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('dashboard-assets/js/Chart.min.js') }}"></script>
+    <script src="{{ asset('dashboard-assets/js/jquery.dataTables.min.js') }}"
     <script src="{{ asset('dashboard-assets/js/main.js') }}"></script>
 
     @routes

@@ -52,7 +52,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'message' => 'We couldn’t log you in. Double-check your email, password, and role.',
             ]);
         }
 

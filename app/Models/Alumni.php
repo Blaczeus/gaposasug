@@ -15,7 +15,7 @@ class Alumni extends Model
     protected $fillable = [
         'user_id',
         'graduation_year',
-        'department',
+        'course_id',
     ];
 
     public function user()

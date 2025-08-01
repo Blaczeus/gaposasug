@@ -4,6 +4,7 @@ import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import CourseTypeahead from '@/components/CourseTypeAhead.vue';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
@@ -17,8 +18,8 @@ const form = useForm({
     role: 'student',
 
     // Student-specific
-    matric_number: '',
-    department: '',
+    matric_no: '',
+    course_id: '',
     level: '',
 
     // Alumni-specific
@@ -64,10 +65,10 @@ const submit = () => {
                     </div>
 
                     <div v-if="form.role === 'student'" class="grid gap-2">
-                        <Label class="text-white" for="matric_number">Matric Number</Label>
-                        <Input class="bg-white/90 text-black dark:bg-neutral-800 dark:text-white" id="matric_number"
-                            v-model="form.matric_number" placeholder="Enter your matric number" />
-                        <InputError :message="form.errors.matric_number" />
+                        <Label class="text-white" for="matric_no">Matric Number</Label>
+                        <Input class="bg-white/90 text-black dark:bg-neutral-800 dark:text-white" id="matric_no"
+                            v-model="form.matric_no" placeholder="Enter your matric number" />
+                        <InputError :message="form.errors.matric_no" />
                     </div>
 
                     <div v-else-if="form.role === 'alumni'" class="grid gap-2">
@@ -114,16 +115,8 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="grid gap-2">
-                        <Label class="text-white" for="department">Department</Label>
-                        <select id="department" v-model="form.department"
-                            class="flex h-9 w-full rounded-md bg-white/90 text-black dark:bg-neutral-800 dark:text-white border border-gray-300 px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-                            <option disabled value="">Select Department</option>
-                            <option value="Computer Science">Computer Science</option>
-                            <option value="Mass Communication">Mass Communication</option>
-                            <option value="Business Administration">Business Administration</option>
-                            <option value="Electrical Engineering">Electrical Engineering</option>
-                        </select>
-                        <InputError :message="form.errors.department" />
+                        <Label class="text-white" for="course_id">Select Course</Label>
+                        <CourseTypeahead v-model="form.course_id" :error="form.errors.course_id" />
                     </div>
                 </div>
 
@@ -137,16 +130,8 @@ const submit = () => {
                             <InputError :message="form.errors.phone" />
                         </div>
                         <div class="grid gap-2">
-                            <Label class="text-white" for="department">Department</Label>
-                            <select id="department" v-model="form.department"
-                                class="flex h-9 w-full rounded-md bg-white/90 text-black dark:bg-neutral-800 dark:text-white border border-gray-300 px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-                                <option disabled value="">Select Department</option>
-                                <option value="Computer Science">Computer Science</option>
-                                <option value="Mass Communication">Mass Communication</option>
-                                <option value="Business Administration">Business Administration</option>
-                                <option value="Electrical Engineering">Electrical Engineering</option>
-                            </select>
-                            <InputError :message="form.errors.department" />
+                            <Label class="text-white" for="course_id">Course</Label>
+                            <CourseTypeahead v-model="form.course_id" :error="form.errors.course_id" />
                         </div>
                     </div>
                 </div>
