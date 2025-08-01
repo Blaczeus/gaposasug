@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Course;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\StudentController;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -34,10 +37,28 @@ Route::prefix('support')->group(function () {
 // Dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth', 'verified')->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return Inertia::render('dashboard/Home')->rootView('dashboard');
     })->name('admin.dashboard');
+
+    Route::get('/admin/students', [StudentController::class, 'index'])->name('admin.students');
+    Route::get('admin/students/{matric_no}', [StudentController::class, 'show'])->name('admin.students.show');
+});
+
+Route::get('_dataxnr/course-search', function (Request $request) {
+    if (!$request->ajax()) {
+        abort(403, 'Unauthorized access.');
+    }
+
+    $q = $request->input('q');
+
+    return Course::query()
+        ->when($q, fn($query) =>
+        $query->where('name', 'like', "%{$q}%")
+            ->orWhere('code', 'like', "%{$q}%"))
+        ->limit(10)
+        ->get(['id', 'name', 'code']);
 });
 
 require __DIR__.'/settings.php';
