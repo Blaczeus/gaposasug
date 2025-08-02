@@ -19,11 +19,11 @@ const searchDept = ref('')
 
 const filteredStudents = computed(() => {
   return props.students.filter(student => {
-    return (
-      student.matric_no?.toLowerCase().includes(searchMatric.value.toLowerCase()) &&
-      student.user?.name?.toLowerCase().includes(searchName.value.toLowerCase()) &&
-      student.course?.department?.toLowerCase().includes(searchDept.value.toLowerCase())
-    )
+    const hasMatric = student.matric_no?.toLowerCase().includes(searchMatric.value.toLowerCase()) ?? false
+    const hasName = student.user?.name?.toLowerCase().includes(searchName.value.toLowerCase()) ?? false
+    const hasDept = student.course?.department?.toLowerCase().includes(searchDept.value.toLowerCase()) ?? false
+
+    return hasMatric && hasName && hasDept
   })
 })
 </script>

@@ -9,21 +9,24 @@ const { students } = defineProps<{ students: Array<Record<string, any>> }>()
 
 // Format and flatten student data (safely extract nested user info)
 const formattedStudents = computed(() =>
-  students.map(student => ({
-    matric_no: student.matric_no ?? '',
-    photo: student.photo ?? '/dashboard-assets/img/figure/user4.jpg',
-    name: student.user?.name ?? 'N/A',
-    course: student.course?.name ?? 'N/A',
-    department: student.course?.department ?? 'N/A',
-    level: student.level ?? 'N/A',
-    gender: student.gender ?? 'N/A',
-    phone: student.user?.phone ?? 'N/A',
-    email: student.user?.email ?? 'N/A',
-    dob: student.dob ?? 'N/A',
-    actions: { matric_no: student.matric_no }
-  }))
+  students.map(student => {
+    const matric_no = student.matric_no ?? ''
+    if (!matric_no) console.warn('Missing matric_no:', student)
+    return {
+      matric_no,
+      photo: student.photo ?? '/dashboard-assets/img/figure/user4.jpg',
+      name: student.user?.name ?? 'N/A',
+      course: student.course?.name ?? 'N/A',
+      department: student.course?.department ?? 'N/A',
+      level: student.level ?? 'N/A',
+      gender: student.gender ?? 'N/A',
+      phone: student.user?.phone ?? 'N/A',
+      email: student.user?.email ?? 'N/A',
+      dob: student.dob ?? 'N/A',
+      actions: { matric_no }
+    }
+  })
 )
-
 </script>
 
 <template>
@@ -49,13 +52,18 @@ const formattedStudents = computed(() =>
           class="w-10 h-10 rounded-full object-cover mx-auto" />
       </template>
 
-      <!-- Render view button with fallback for missing matric_no -->
-      <template #item-actions="{ value }">
+      <!-- Render view button -->
+      <template #item-actions="{ actions }">
         <div class="text-center">
-          <Link :href="route('admin.students.show', value?.matric_no)" class="view-button inline-flex items-center">
+          <Link
+            v-if="actions?.matric_no"
+            :href="route('admin.students.show', actions.matric_no)"
+            class="view-button inline-flex items-center"
+          >
             <i class="fas fa-eye mr-1 text-blue-500"></i>
             View
           </Link>
+          <span v-else class="text-gray-400 text-sm">No ID</span>
         </div>
       </template>
     </EasyDataTable>
