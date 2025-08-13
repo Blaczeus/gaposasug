@@ -74,9 +74,6 @@ const logout = () => {
                   <Link href="/profile"><i class="flaticon-user"></i>My Profile</Link>
                 </li>
                 <li>
-                  <Link href="/tasks"><i class="flaticon-list"></i>Tasks</Link>
-                </li>
-                <li>
                   <Link href="/messages"><i
                     class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Messages</Link>
                 </li>
@@ -84,11 +81,7 @@ const logout = () => {
                   <Link href="/settings"><i class="flaticon-gear-loading"></i>Settings</Link>
                 </li>
                 <li>
-                  <button @click="logout"
-                    class="w-full text-left flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    <i class="flaticon-turn-off text-4xl"></i>
-                    <span>Log Out</span>
-                  </button>
+                  <Link href="/logout" @click="logout"><i class="flaticon-turn-off"></i>Log Out</Link>
                 </li>
               </ul>
             </div>
