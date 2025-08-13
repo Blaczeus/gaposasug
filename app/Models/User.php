@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Student;
 use App\Models\Alumni;
 use App\Models\Admin;
+use App\Models\Complaint;
 
 class User extends Authenticatable
 {
@@ -66,6 +67,11 @@ class User extends Authenticatable
     public function admin()
     {
         return $this->hasOne(Admin::class);
+    }
+
+    public function complaint()
+    {
+        return $this->hasMany(Complaint::class);
     }
 
     /**

@@ -1,8 +1,16 @@
 import type { LucideIcon } from 'lucide-vue-next';
 import type { Config } from 'ziggy-js';
 
+export interface MenuItem {
+    label: string;
+    icon?: string;
+    href?: string;
+    submenu?: MenuItem[];
+}
+
 export interface Auth {
-    user: User;
+    user: User | null; // null when not logged in
+    role: User['role'] | null;
 }
 
 export interface BreadcrumbItem {
