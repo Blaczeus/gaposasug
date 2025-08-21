@@ -12,9 +12,9 @@ class ComplaintController extends Controller
     public function index()
     {
         $complaints = Complaint::where('user_id', Auth::id())->latest()->get();
-        return inertia('Student/Complaints/Index', compact('complaints'));
+        return inertia('student/complaints/Index', compact('complaints'));
     }
-
+ 
     public function store(Request $request)
     {
         $validated = $request->validate([

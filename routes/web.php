@@ -52,13 +52,38 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
 
 // Admin-only routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    // Students
     Route::get('/students', [StudentController::class, 'index'])->name('students');
     Route::get('/students/{student}', [StudentController::class, 'show'])->name('students.show');
     Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
 
+    // Complaints (Archived) → static routes must come BEFORE dynamic ones
+    Route::get('/complaints/archived', [AdminComplaintController::class, 'archived'])->name('complaints.archived');
+    Route::get('/complaints/archived/{id}', [AdminComplaintController::class, 'archivedDetails'])->name('complaints.archived.show');
+    Route::patch('/complaints/{id}/restore', [AdminComplaintController::class, 'restore'])->name('complaints.restore');
+    Route::post('/complaints/bulk-archive', [AdminComplaintController::class, 'bulkArchive'])->name('complaints.bulk-archive');
+    Route::post('/complaints/bulk-restore', [AdminComplaintController::class, 'bulkRestore'])->name('complaints.bulk-restore');
+
+
+    // Complaints (Active)
     Route::get('/complaints', [AdminComplaintController::class, 'index'])->name('complaints.index');
     Route::get('/complaints/{complaint}', [AdminComplaintController::class, 'show'])->name('complaints.show');
-    Route::post('/complaints/{complaint}/resolve', [AdminComplaintController::class, 'resolve'])->name('complaints.resolve');
+    Route::put('/complaints/{complaint}/status', [AdminComplaintController::class, 'updateStatus'])->name('complaints.status.update');
+    Route::delete('/complaints/{complaint}', [AdminComplaintController::class, 'destroy'])->name('complaints.destroy');
+});
+
+
+Route::get('/test-table', function () {
+    $complaints = [
+        ['id' => 1, 'title' => 'Late Lecturer', 'status' => 'Pending'],
+        ['id' => 2, 'title' => 'No Power in Hostel', 'status' => 'Resolved'],
+        ['id' => 3, 'title' => 'WiFi Not Working', 'status' => 'Pending'],
+    ];
+
+    return Inertia::render('Test/TableDemo', [
+        'complaints' => $complaints,
+    ]);
 });
 
 // API for course search

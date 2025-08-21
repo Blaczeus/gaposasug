@@ -23,7 +23,9 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        $student->load('user', 'course');
+        $student->load('user', 'course', [
+            'complaints' => fn ($q) => $q->withTrashed()->latest(),
+        ]);
         // $student = Student::with('user', 'course')->where('matric_no', $matric_no)->firstOrFail();
 
         return Inertia::render('dashboard/admin/students/Show', [

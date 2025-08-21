@@ -12,16 +12,16 @@ import Topbar from './partials/Topbar.vue';
   <!-- <div id="preloader"></div> -->
   <!-- Preloader End Here -->
 
-  <div id="wrapper" class="wrapper bg-ash">
+  <div id="wrapper" class="wrapper bg-ash min-h-screen flex flex-col">
     <!-- Topbar -->
     <Topbar />
 
-    <div class="dashboard-page-one">
+    <div class="flex flex-1">
       <!-- Sidebar -->
       <Sidebar />
 
       <!-- Page wrapper -->
-      <div class="dashboard-content-one">
+      <div class="dashboard-content-one flex-1">
         <!-- Page content -->
         <slot />
         <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up"></i></a>

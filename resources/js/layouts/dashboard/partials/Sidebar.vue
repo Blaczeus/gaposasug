@@ -25,18 +25,19 @@ const role = computed(() => (page.props.auth?.role ?? null) as 'admin' | 'studen
 const allMenus: Record<string, MenuItem[]> = {
   admin: [
     { label: 'Dashboard', icon: 'flaticon-dashboard', href: route('dashboard') },
+    { label: 'Students', icon: 'flaticon-classmates', href: route('admin.students') },
     {
-      label: 'Students', icon: 'flaticon-classmates', submenu: [
-        { label: 'All Students', href: route('admin.students') },
-        { label: 'Student Complaints', href: route('admin.complaints.index') },
+      label: 'Complaints', icon: 'flaticon-checklist', submenu: [
+        { label: 'All Complaints', href: route('admin.complaints.index') },
+        {
+          label: 'Archived Complaints', href: route('admin.complaints.archived')
+        },
       ]
     },
-    { label: 'Complaints', icon: 'flaticon-checklist', href: route('admin.complaints.index') },
   ],
   student: [
     { label: 'Dashboard', icon: 'flaticon-dashboard', href: route('dashboard') },
     { label: 'Complaints', icon: 'flaticon-checklist', href: route('student.complaints.index') },
-    { label: 'New Complaint', icon: 'flaticon-edit', href: route('student.complaints.create') },
   ],
   alumni: [
     { label: 'Dashboard', icon: 'flaticon-dashboard', href: route('dashboard') },
