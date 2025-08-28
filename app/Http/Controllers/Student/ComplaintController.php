@@ -11,10 +11,42 @@ class ComplaintController extends Controller
 {
     public function index()
     {
-        $complaints = Complaint::where('user_id', Auth::id())->latest()->get();
-        return inertia('student/complaints/Index', compact('complaints'));
+        $complaints = Complaint::withTrashed()
+            ->where('user_id', Auth::id())
+            ->withCount(['responses as responses_count' => function ($query) {
+                $query->where('visible_to_student', true);
+            }])
+            ->latest()
+            ->get();
+
+        return inertia('dashboard/student/complaints/Index', [
+            'complaints' => $complaints,
+        ])->rootView('dashboard');
     }
- 
+
+    public function show(Complaint $complaint)
+    {
+        $complaint->load([
+            'student.user',
+            'student.course',
+            'responses' => function ($query) {
+                $query->where('visible_to_student', true)
+                    ->with('admin.user') // so student sees who responded
+                    ->latest();
+            },
+        ]);
+
+        return inertia('dashboard/student/complaints/Show', [
+            'complaint' => $complaint
+        ])->rootView('dashboard');
+    }
+
+
+    public function create()
+    {
+        return inertia('dashboard/student/complaints/Create')->rootView('dashboard');
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

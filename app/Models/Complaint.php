@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\ComplaintResponse;
 
 class Complaint extends Model
 {
     use SoftDeletes;
-    
+
     protected $fillable = [
-        'user_id',
         'title',
-        'description',
+        'body',
         'status',
-        'photo',
+        'user_id',
     ];
 
     /**
@@ -30,5 +30,10 @@ class Complaint extends Model
     public function student()
     {
         return $this->belongsTo(Student::class,'user_id','id');
+    }
+
+    public function responses()
+    {
+        return $this->hasMany(ComplaintResponse::class);
     }
 }

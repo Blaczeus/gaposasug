@@ -22,6 +22,7 @@ const formattedComplaints = computed(() =>
     submitted_at: complaint.created_at
       ? new Date(complaint.created_at).toLocaleDateString()
       : 'N/A',
+    responses_count: complaint.responses_count ?? 0,
     actions: { id: complaint.id }
   }))
 )
@@ -32,6 +33,7 @@ const headers = [
   { text: 'Matric No', value: 'matric_no' },
   { text: 'Title', value: 'title' },
   { text: 'Status', value: 'status' },
+  { text: 'Responses', value: 'responses_count' },
   { text: 'Submitted At', value: 'submitted_at' },
   { text: 'Actions', value: 'actions', sortable: false }
 ]
@@ -95,6 +97,13 @@ function bulkAction(action: 'archive' | 'restore') {
           }}
         </span>
       </template>
+
+      <template #item-responses_count="{ responses_count }">
+        <span :class="responses_count > 0 ? 'text-green-600 font-semibold' : 'text-gray-500'">
+          {{ responses_count }}
+        </span>
+      </template>
+
 
       <!-- Actions slot -->
       <template #item-actions="{ actions }">

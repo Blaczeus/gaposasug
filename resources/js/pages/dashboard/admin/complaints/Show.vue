@@ -1,8 +1,15 @@
 <script setup>
 import DashboardLayout from '@/layouts/dashboard/DashboardLayout.vue'
 import Breadcrumbs from '@/components/dashboard/Breadcrumbs.vue'
-import { Link } from '@inertiajs/vue3'
-import { router } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import { Link, router, useForm } from '@inertiajs/vue3'
+
+const response = ref('')
+
+const form = useForm({
+  response: '',
+  visible_to_student: true,
+})
 
 const { complaint } = defineProps({
   complaint: {
@@ -46,13 +53,25 @@ function archiveComplaint() {
   });
 }
 
+// Send admin response
+function sendResponse() {
+  if (!form.response.trim()) {
+    alert('Response cannot be empty.')
+    return
+  }
+
+  form.post(route('admin.complaints.response.store', complaint.id), {
+    preserveScroll: true,
+    onSuccess: () => form.reset('response'),
+  })
+}
 </script>
 
 <template>
   <DashboardLayout>
     <Breadcrumbs title="Complaint Details" :links="breadcrumbLinks" />
-
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
       <!-- Main Complaint Card -->
       <div class="xl:col-span-2">
         <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-lg p-8 transition">
@@ -108,7 +127,7 @@ function archiveComplaint() {
             <div class="font-semibold">
               <span class="font-extrabold text-gray-900 dark:text-gray-100">Department: </span>
               <span class="text-gray-700 dark:text-gray-300">
-                {{ complaint.student?.course?.department_name || 'Not Assigned' }}
+                {{ complaint.student?.course?.department || 'Not Assigned' }}
               </span>
             </div>
 
@@ -127,32 +146,78 @@ function archiveComplaint() {
               </span>
             </div>
           </div>
+        </div>
 
+        <!-- Buttons container -->
+        <div class="xl:col-span-2 mt-[40px]">
+          <div class="flex flex-col md:flex-row gap-4">
+            <!-- Status Update Button -->
+            <button v-if="statusMap[complaint.status]" @click="updateComplaintStatus(statusMap[complaint.status].next)"
+              class="flex-1 bg-green-500 hover:bg-green-600 text-white !rounded-2xl py-2 px-4 transition">
+              {{ statusMap[complaint.status].label }}
+            </button>
+
+            <!-- Archive Complaint Button -->
+            <button @click="archiveComplaint" :disabled="complaint.status !== 'resolved'" :class="[
+              'flex-1 py-2 px-4 !rounded-2xl transition',
+              complaint.status !== 'resolved'
+                ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                : 'bg-red-500 hover:bg-red-600 text-white'
+            ]">
+              {{ complaint.status !== 'resolved' ? 'Resolve to Archive' : 'Archive Complaint' }}
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Sidebar Actions -->
-      <div class="space-y-6">
-        <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-md p-6">
-          <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Actions</h3>
+      <!-- Admin Response Box -->
+      <div class="bg-white dark:bg-neutral-800 rounded-2xl shadow-md p-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Admin Response</h3>
 
-          <!-- Status Update Button -->
-          <button v-if="statusMap[complaint.status]" @click="updateComplaintStatus(statusMap[complaint.status].next)"
-            class="w-full mb-3 bg-green-500 hover:bg-green-600 text-white rounded-lg py-2 px-4 transition">
-            {{ statusMap[complaint.status].label }}
-          </button>
+        <!-- Existing Responses -->
+        <div v-if="complaint.responses?.length" class="mb-6 space-y-4">
+          <div v-for="response in complaint.responses" :key="response.id"
+            class="bg-green-50 dark:bg-green-900/40 border border-green-200 dark:border-green-800 rounded-xl p-4">
+            <p class="text-gray-800 dark:text-gray-200 whitespace-pre-line">
+              {{ response.response }}
+            </p>
+            <p class="text-xs mt-2 text-gray-500 dark:text-gray-400">
+              By: {{ response.admin?.user?.name || 'Unknown Admin' }} 
+              · {{ new Date(response.created_at).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              }) }}
+            </p>
+          </div>
+        </div>
 
-          <!-- Archive Complaint Button -->
-          <button @click="archiveComplaint" :disabled="complaint.status !== 'resolved'" :class="[
-            'w-full py-2 px-4 rounded-lg transition',
-            complaint.status !== 'resolved'
-              ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-              : 'bg-red-500 hover:bg-red-600 text-white'
-          ]">
-            {{ complaint.status !== 'resolved' ? 'Resolve to Archive' : 'Archive Complaint' }}
+
+        <!-- Response Form -->
+        <form @submit.prevent="sendResponse">
+          <textarea v-model="form.response" rows="4" placeholder="Write your response here..."
+            class="w-full px-3 py-2 border rounded-lg dark:bg-neutral-700 dark:text-gray-200"></textarea>
+
+          <label class="flex items-center gap-2 mt-2">
+            <input type="checkbox" v-model="form.visible_to_student" class="rounded border-gray-300" />
+            <span class="text-sm text-gray-600 dark:text-gray-300">Visible to student</span>
+          </label>
+
+          <button type="submit"
+            class="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-2 px-4 transition">
+            Send Response
           </button>
+        </form>
+
+        <div v-if="$page.props.flash.success" class="text-green-600 mt-4 flex justify-center items-center">
+          {{ $page.props.flash.success }}
         </div>
       </div>
+
+      <!-- Spacer to balance grid with Admin Response -->
+      <div></div>
     </div>
   </DashboardLayout>
 </template>

@@ -1,78 +1,68 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { router } from '@inertiajs/vue3'
+import DashboardLayout from '@/layouts/dashboard/DashboardLayout.vue'
+import ComplaintCard from '@/components/dashboard/complaints/ComplaintCard.vue'
 
 const props = defineProps({
   complaints: Array, // complaints coming from controller
 })
 
 const search = ref('')
+const statusFilter = ref('') // '' = All
 
-// filter complaints based on search input
 const filteredComplaints = computed(() => {
-  if (!search.value) return props.complaints
-  return props.complaints.filter(c =>
-    c.title.toLowerCase().includes(search.value.toLowerCase()) ||
-    c.body.toLowerCase().includes(search.value.toLowerCase())
-  )
-})
+  return props.complaints.filter(complaint => {
+    const matchesSearch =
+      complaint.title?.toLowerCase().includes(search.value.toLowerCase()) ||
+      complaint.description?.toLowerCase().includes(search.value.toLowerCase()) ||
+      complaint.user?.name?.toLowerCase().includes(search.value.toLowerCase()) // if user relation is loaded
 
-function goToComplaint(id) {
-  router.visit(route('student.complaints.show', id))
-}
+    const matchesStatus =
+      !statusFilter.value || // no filter = show all
+      (statusFilter.value === 'archived' && complaint.deleted_at) ||
+      (statusFilter.value !== 'archived' && complaint.status === statusFilter.value)
+
+    return matchesSearch && matchesStatus
+  })
+})
 </script>
 
+
 <template>
-  <div class="p-6">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-xl font-semibold">My Complaints</h1>
-      <a :href="route('student.complaints.create')"
-        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-        + New Complaint
-      </a>
-    </div>
+  <DashboardLayout>
+    <div class="p-6">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-semibold">My Complaints</h1>
+        <a :href="route('student.complaints.create')"
+          class="px-4 py-2 !bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          + New Complaint
+        </a>
+      </div>
 
-    <!-- Search -->
-    <div class="mb-4">
-      <input v-model="search" type="text" placeholder="Search complaints..."
-        class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-    </div>
+      <!-- Search + Filter -->
+      <div class="mb-4 flex flex-col sm:flex-row gap-3">
+        <input v-model="search" type="text" placeholder="Search by title, description or name..."
+          class="w-full sm:w-2/3 px-3 py-2 border bg-white text-black rounded-lg focus:ring focus:ring-blue-300" />
 
-    <!-- Complaints list -->
-    <div v-if="filteredComplaints.length">
-      <ul class="space-y-4">
-        <li v-for="complaint in filteredComplaints" :key="complaint.id" @click="goToComplaint(complaint.id)"
-          class="p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
-          <div class="flex justify-between items-center">
-            <h2 class="font-medium text-gray-800">
-              {{ complaint.title }}
-            </h2>
-            <span class="text-xs px-2 py-1 rounded-full" :class="{
-              'bg-yellow-100 text-yellow-800': complaint.status === 'pending',
-              'bg-green-100 text-green-800': complaint.status === 'resolved',
-              'bg-gray-200 text-gray-600': complaint.status === 'archived'
-            }">
-              {{ complaint.status }}
-            </span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">
-            {{ complaint.body.substring(0, 100) }}...
-          </p>
-          <p class="text-xs text-gray-400 mt-1">
-            Submitted on {{ complaint.created_at }}
-          </p>
-        </li>
-      </ul>
-    </div>
+        <select v-model="statusFilter"
+          class="w-full sm:w-1/3 px-3 py-2 border bg-white text-black rounded-lg focus:ring focus:ring-blue-300">
+          <option value="">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="in_progress">In Review</option>
+          <option value="resolved">Resolved</option>
+          <option value="archived">Archived</option>
+        </select>
+      </div>
 
-    <!-- Empty state -->
-    <div v-else class="text-center py-12 text-gray-500">
-      <p class="mb-3">You haven’t submitted any complaints yet.</p>
-      <a :href="route('student.complaints.create')"
-        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-        Submit a Complaint
-      </a>
+      <!-- Complaints list -->
+      <div class="p-6">
+        <ul v-if="filteredComplaints.length" class="space-y-2">
+          <ComplaintCard v-for="complaint in filteredComplaints" :key="complaint.id" :complaint="complaint" />
+        </ul>
+        <p v-else class="text-muted-foreground">No complaints found.</p>
+      </div>
     </div>
-  </div>
+  </DashboardLayout>
 </template>
+

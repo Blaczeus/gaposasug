@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
+use App\Http\Controllers\ComplaintResponseController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
@@ -48,6 +49,8 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::get('/complaints', [StudentComplaintController::class, 'index'])->name('complaints.index');
     Route::get('/complaints/create', [StudentComplaintController::class, 'create'])->name('complaints.create');
     Route::post('/complaints', [StudentComplaintController::class, 'store'])->name('complaints.store');
+
+    Route::get('/complaints/{complaint}', [StudentComplaintController::class, 'show'])->name('complaints.show');
 });
 
 // Admin-only routes
@@ -70,6 +73,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/complaints', [AdminComplaintController::class, 'index'])->name('complaints.index');
     Route::get('/complaints/{complaint}', [AdminComplaintController::class, 'show'])->name('complaints.show');
     Route::put('/complaints/{complaint}/status', [AdminComplaintController::class, 'updateStatus'])->name('complaints.status.update');
+    Route::post('/complaints/{complaint}/response', [ComplaintResponseController::class, 'store'])->name('complaints.response.store');
     Route::delete('/complaints/{complaint}', [AdminComplaintController::class, 'destroy'])->name('complaints.destroy');
 });
 

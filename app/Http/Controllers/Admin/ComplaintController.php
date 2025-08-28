@@ -17,25 +17,29 @@ class ComplaintController extends Controller
     public function index()
     {
         $complaints = Complaint::with([
-            'student.user' // Eager-load student and the student's user profile
-        ])->latest()->get();
+            'student.user',
+        ])->withCount('responses')
+        ->latest()
+        ->get();
 
         return inertia('dashboard/admin/complaints/Index', compact('complaints'))
             ->rootView('dashboard');
     }
 
+
     public function show(Complaint $complaint)
     {
-        // Eager-load related data:
-        // - user (who submitted the complaint)
-        // - student (linked student record)
-        // - student.course (the course + department info)
-        $complaint->load('user', 'student.course');
+        $complaint->load([
+            'user',
+            'student.course',
+            'responses.admin.user', // eager load responses + admin + their user profile
+        ]);
 
         return inertia('dashboard/admin/complaints/Show', [
-            'complaint' => $complaint
+            'complaint' => $complaint,
         ])->rootView('dashboard');
     }
+
 
     public function archived()
     {
