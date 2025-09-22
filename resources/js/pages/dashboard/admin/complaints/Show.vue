@@ -107,8 +107,56 @@ function sendResponse() {
               Description
             </p>
             <div
-              class="bg-gray-50 dark:bg-neutral-700 rounded-xl p-4 text-gray-800 dark:text-gray-200 whitespace-pre-line">
-              {{ complaint.description || complaint.body || 'No description provided.' }}
+              class="bg-gray-50 dark:bg-neutral-700 rounded-xl p-4 text-gray-800 dark:text-gray-200 whitespace-pre-line prose max-w-none"
+              v-html="complaint.description">
+            </div>
+          </div>
+
+          <!-- Attachments -->
+          <div class="mb-6">
+            <p class="!text-black !dark:text-gray-300 text-md font-medium mb-2">
+              Attachment
+            </p>
+
+            <!-- If there is an attachment -->
+            <div v-if="complaint.attachment"
+              class="bg-gray-50 dark:bg-neutral-700 rounded-xl p-4 flex items-center gap-4">
+              <!-- If it's a PDF -->
+              <template v-if="complaint.attachment.toLowerCase().endsWith('.pdf')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-500" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+                </svg>
+                <div class="flex flex-col">
+                  <span class="text-sm text-gray-600 dark:text-gray-300">
+                    {{ complaint.attachment.split('/').pop() }}
+                  </span>
+                  <a :href="`/storage/${complaint.attachment}`" target="_blank"
+                    class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                    Open PDF
+                  </a>
+                </div>
+              </template>
+
+              <!-- If it's an image -->
+              <template v-else>
+                <img :src="`/storage/${complaint.attachment}`" alt="Attachment Preview"
+                  class="w-20 h-20 object-cover rounded-lg border border-gray-300 dark:border-gray-600" />
+                <div class="flex flex-col">
+                  <span class="text-md text-gray-600 dark:text-gray-300">
+                    {{ complaint.attachment.split('/').pop() }}
+                  </span>
+                  <a :href="`/storage/${complaint.attachment}`" target="_blank"
+                    class="text-blue-600 dark:text-blue-400 hover:underline text-lg">
+                    View Full Image
+                  </a>
+                </div>
+              </template>
+            </div>
+
+            <!-- If no attachment -->
+            <div v-else class="bg-gray-50 dark:bg-neutral-700 rounded-xl p-4 text-gray-500 dark:text-gray-400 italic">
+              No attachment uploaded.
             </div>
           </div>
 
@@ -127,7 +175,7 @@ function sendResponse() {
             <div class="font-semibold">
               <span class="font-extrabold text-gray-900 dark:text-gray-100">Department: </span>
               <span class="text-gray-700 dark:text-gray-300">
-                {{ complaint.student?.course?.department || 'Not Assigned' }}
+                {{ complaint.student?.course?.department?.name || 'Not Assigned' }}
               </span>
             </div>
 
@@ -175,24 +223,49 @@ function sendResponse() {
         <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Admin Response</h3>
 
         <!-- Existing Responses -->
-        <div v-if="complaint.responses?.length" class="mb-6 space-y-4">
+        <!-- Admin Responses -->
+        <div v-if="complaint.responses?.length"
+          class="mb-6 space-y-4 max-h-100 overflow-y-auto overflow-x-hidden pr-2 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-100 rounded-lg custom-scrollbar">
+
           <div v-for="response in complaint.responses" :key="response.id"
-            class="bg-green-50 dark:bg-green-900/40 border border-green-200 dark:border-green-800 rounded-xl p-4">
-            <p class="text-gray-800 dark:text-gray-200 whitespace-pre-line">
-              {{ response.response }}
-            </p>
-            <p class="text-xs mt-2 text-gray-500 dark:text-gray-400">
-              By: {{ response.admin?.user?.name || 'Unknown Admin' }} 
-              · {{ new Date(response.created_at).toLocaleString('en-US', {
+            class="bg-green-50 dark:bg-green-900/40 border border-green-200 dark:border-green-800 rounded-xl !p-4 relative mt-4 mb-4">
+            <!-- Icon -->
+            <div class="absolute -top-3 -right-3 bg-green-600 dark:bg-green-500 text-white rounded-full p-2 shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+
+            <!-- Date + Visibility Badge -->
+            <div class="flex items-center justify-between mb-2">
+              <p class="text-lg !text-black font-medium dark:text-gray-400">
+                {{ new Date(response.created_at).toLocaleString('en-US', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit'
-              }) }}
+                }) }}
+              </p>
+
+              <!-- Badge -->
+              <span v-if="!response.visible_to_student"
+                class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded-md">
+                Admin-only
+              </span>
+              <span v-else class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-md">
+                Visible to student
+              </span>
+            </div>
+
+            <!-- Response Text -->
+            <p class="text-gray-800 dark:text-gray-200 whitespace-pre-line">
+              {{ response.response }}
             </p>
           </div>
         </div>
+
 
 
         <!-- Response Form -->
@@ -200,9 +273,12 @@ function sendResponse() {
           <textarea v-model="form.response" rows="4" placeholder="Write your response here..."
             class="w-full px-3 py-2 border rounded-lg dark:bg-neutral-700 dark:text-gray-200"></textarea>
 
-          <label class="flex items-center gap-2 mt-2">
-            <input type="checkbox" v-model="form.visible_to_student" class="rounded border-gray-300" />
-            <span class="text-sm text-gray-600 dark:text-gray-300">Visible to student</span>
+          <label class="flex items-center justify-center gap-2 mt-2">
+            <input type="checkbox" v-model="form.visible_to_student"
+              class="w-5 h-5 rounded-md border-gray-300 text-blue-600 focus:ring-blue-500" />
+            <span class="text-lg text-gray-600 dark:text-gray-300 leading-none">
+              Visible to student
+            </span>
           </label>
 
           <button type="submit"

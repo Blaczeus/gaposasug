@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('code')->unique(); // e.g. CSC101
             $table->enum('level', ['ND', 'HND'])->nullable(); // Stored as capital case only
             $table->text('description')->nullable(); // Optional course description
-            $table->string('department')->nullable(); // Optional department name (fallback for now)
+            $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete(); // Optional department name (fallback for now)
             $table->timestamps();
         });
     }

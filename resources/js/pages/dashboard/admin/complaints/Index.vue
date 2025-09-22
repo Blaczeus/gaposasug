@@ -2,7 +2,8 @@
 import DashboardLayout from '@/layouts/dashboard/DashboardLayout.vue'
 import Breadcrumbs from '@/components/dashboard/Breadcrumbs.vue'
 import ComplaintTable from '@/components/dashboard/ComplaintsTable.vue'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import {usePage} from '@inertiajs/vue3'
 
 const breadcrumbLinks = [
   { label: 'Home', href: '/admin/dashboard' },
@@ -18,6 +19,21 @@ const activeComplaints = computed(() => props.complaints || [])
 const searchMatric = ref('')
 const searchTitle = ref('')
 const searchStatus = ref('')
+
+// On mount, check URL query and set filters
+onMounted(() => {
+  const urlParams = new URLSearchParams(window.location.search)
+  if (urlParams.has('matric_no')) {
+    searchMatric.value = urlParams.get('matric_no')
+  }
+  // Other filters are not needed for now
+  // if (urlParams.has('title')) {
+  //   searchTitle.value = urlParams.get('title')
+  // }
+  // if (urlParams.has('status')) {
+  //   searchStatus.value = urlParams.get('status')
+  // }
+})
 
 const filteredComplaints = computed(() => {
   return activeComplaints.value.filter(complaint => {

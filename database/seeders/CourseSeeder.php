@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Course;
+use App\Models\Department;
 use Carbon\Carbon;
 
 class CourseSeeder extends Seeder
@@ -114,6 +115,34 @@ class CourseSeeder extends Seeder
 
         ];
 
-        Course::insert($courses);
+        $groupedCourses = [];
+
+        foreach ($courses as $course) {
+            $dept = $course['department'];
+            unset($course['department']); // remove dept field, since it's now the key
+            $groupedCourses[$dept][] = $course;
+        }
+
+        $courses = $groupedCourses;
+
+        foreach ($courses as $departmentName => $courseList) {
+            $department = Department::where('name', $departmentName)->first();
+
+            if (!$department) {
+                continue;
+            }
+
+            foreach ($courseList as $course) {
+                Course::firstOrCreate(
+                    ['code' => $course['code']], // unique constraint
+                    [
+                        'name' => $course['name'],
+                        'level' => $course['level'],
+                        'description' => $course['description'] ?? ($course['name'] . ' course description'),
+                        'department_id' => $department->id,
+                    ]
+                );
+            }
+        }
     }
 }

@@ -14,7 +14,8 @@ class Complaint extends Model
 
     protected $fillable = [
         'title',
-        'body',
+        'description',
+        'attachment',
         'status',
         'user_id',
     ];
@@ -29,7 +30,7 @@ class Complaint extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class,'user_id','id');
+        return $this->hasOne(Student::class, 'user_id', 'user_id');
     }
 
     public function responses()

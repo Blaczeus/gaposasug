@@ -16,9 +16,7 @@
               {{ complaint.title }}
             </p>
             <!-- Body preview -->
-            <p class="text-lg text-muted-foreground mt-0.5 line-clamp-1">
-              {{ complaint.description ? complaint.description.substring(0, 100) : '' }}...
-            </p>
+            <p class="text-lg text-muted-foreground mt-0.5 line-clamp-1 prose max-w-none" v-html="complaint.description"></p>
           </div>
         </div>
 

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark'=> ($appearance ?? 'system') == 'dark'])>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script>
-        (function () {
+        (function() {
             const appearance = '{{ $appearance ?? "system" }}';
             if (appearance === 'system') {
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -67,10 +68,12 @@
     <script src="/assets/js/main.js"></script>
 
     @routes
-    @vite(['resources/js/app.ts'])
+    @vite(['resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
     @inertiaHead
 </head>
+
 <body class="font-sans antialiased">
     @inertia
 </body>
+
 </html>

@@ -23,7 +23,7 @@ const items = computed(() =>
     matric_no: student.matric_no ?? '',
     name: student.user?.name ?? 'N/A',
     course: student.course?.name ?? 'N/A',
-    department: student.course?.department ?? 'N/A',
+    department: student.course?.department?.name ?? 'N/A',
     level: student.level ?? 'N/A',
     gender: student.gender ?? 'N/A',
     phone: student.user?.phone ?? 'N/A',

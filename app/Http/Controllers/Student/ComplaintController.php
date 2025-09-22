@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mews\Purifier\Facades\Purifier;
 
 class ComplaintController extends Controller
 {
@@ -51,15 +52,25 @@ class ComplaintController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'body' => 'required|string',
+            'description' => 'required|string',
+            'attachment' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120', // max 5MB
         ]);
+
+        $attachmentPath = null;
+        if ($request->hasFile('attachment')) {
+            $userId = Auth::id();
+            $attachmentPath = $request->file('attachment')->store("complaints/{$userId}", 'public');
+        }
+
+        $cleanDescription = Purifier::clean($validated['description']);
 
         Complaint::create([
             'user_id' => Auth::id(),
             'title' => $validated['title'],
-            'body' => $validated['body'],
+            'description' => $cleanDescription,
+            'attachment' => $attachmentPath,
+            'status' => 'Pending',
         ]);
-
-        return back()->with('success', 'Complaint submitted successfully.');
+        return redirect()->route('student.complaints.index')->with('success', 'Complaint submitted successfully.');
     }
 }

@@ -40,8 +40,8 @@ const form = useForm<{
 })
 
 // Photo handling
-const originalPhoto = ref(props.student.photo)
-const previewPhoto = ref(originalPhoto.value)
+const originalPhoto = ref(props.student.photo)   // just the DB value (e.g. student_photos/5/xxx.jpg)
+const previewPhoto = ref<string | null>(null)    // only used for newly selected files
 const uploadError = ref<string | null>(null)
 
 /**
@@ -87,7 +87,10 @@ function save() {
     forceFormData: true, // Important for file uploads
     onSuccess: () => {
       isEditing.value = false;
-      originalPhoto.value = previewPhoto.value;
+      if (props.student.photo) {
+        originalPhoto.value = `${window.location.origin}/storage/${props.student.photo}`
+      }
+      previewPhoto.value = null;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     onError: (errors) => {
@@ -107,27 +110,31 @@ function cancelEdit() {
 }
 
 /**
- * Computed: Determine the correct photo URL (original or fallback).
+ * Computed: Determine the correct photo URL (preview → DB → fallback).
  */
 const displayPhoto = computed(() => {
-  // Show preview if user selected a new photo
-  if (previewPhoto.value) return previewPhoto.value
-
-  // If student has photo, use the exact path (assuming it's already `student_photos/...`)
-  if (props.student.photo) {
-    const relativePath = props.student.photo.replace(/^storage\//, '')
-    return `${window.location.origin}/storage/${relativePath}`
+  // Case 1: New photo selected → show preview blob
+  if (previewPhoto.value) {
+    return previewPhoto.value
   }
 
-  // No photo at all – fallback will be handled in @error
+  // Case 2: Existing DB photo → prepend with /storage
+  if (originalPhoto.value) {
+    return `${window.location.origin}/storage/${originalPhoto.value}`
+  }
+
+  // Case 3: Nothing → fallback will handle in @error
   return ''
 })
-
 
 function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement
   console.warn('Failed to load student image. Using fallback.')
   img.src = getFallbackImage(props.student.gender)
+}
+
+const viewComplaintHistory = () => {
+  window.location.href = route('admin.complaints.index', { matric_no: props.student.matric_no })
 }
 
 </script>
@@ -147,12 +154,25 @@ function handleImageError(event: Event) {
           <div class="item-title">
             <h3>{{ props.student.user.name.toUpperCase() }} - {{ props.student.matric_no }}</h3>
           </div>
-          <div class="header-elements">
-            <button @click.prevent="isEditing ? cancelEdit() : isEditing = true"
-              class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark flex items-center gap-2 px-4 py-2 rounded-[6px]">
-              <i class="far fa-edit"></i>
-              <span>{{ isEditing ? 'Cancel' : 'Edit' }}</span>
-            </button>
+          <div class="header-elements flex gap-8">
+
+            <!-- View Complaints Button (hidden in edit mode) -->
+            <div v-if="!isEditing">
+              <button @click="viewComplaintHistory"
+                class="btn-fill-lg btn-gradient-blue btn-hover-yellow flex items-center gap-2 px-4 py-2 rounded-[6px]">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <span>View Complaints</span>
+              </button>
+            </div>
+
+            <!-- Edit Button -->
+            <div class="header-elements">
+              <button @click.prevent="isEditing ? cancelEdit() : isEditing = true"
+                class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark flex items-center gap-2 px-4 py-2 rounded-[6px]">
+                <i :class="isEditing ? 'fas fa-times' : 'far fa-edit'" class="mr-2"></i>
+                <span>{{ isEditing ? 'Cancel' : 'Edit' }}</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -205,7 +225,8 @@ function handleImageError(event: Event) {
           <!-- Department -->
           <div class="form-group relative">
             <span class="block text-2xl mb-3 font-semibold text-black">Department:</span>
-            <input type="text" :value="props.student.course.department" class="form-control rounded-[8px]" disabled />
+            <input type="text" :value="props.student.course?.department?.name || 'N/A'"
+              class="form-control rounded-[8px]" disabled />
             <i class="fas fa-lock text-red-600 absolute right-3 top-17"></i>
           </div>
 

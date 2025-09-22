@@ -14,7 +14,8 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::with('user', 'course')->latest()->get();
+        $students = Student::with(['user', 'course.department'])->latest()->get();
+        // dd($students);
 
         return Inertia::render('dashboard/admin/students/Index', [
             'students' => $students,
@@ -23,10 +24,11 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        $student->load('user', 'course', [
-            'complaints' => fn ($q) => $q->withTrashed()->latest(),
+        $student->load([
+            'user',
+            'course.department',
+            'complaints' => fn($q) => $q->withTrashed()->latest(),
         ]);
-        // $student = Student::with('user', 'course')->where('matric_no', $matric_no)->firstOrFail();
 
         return Inertia::render('dashboard/admin/students/Show', [
             'student' => $student,
@@ -93,7 +95,9 @@ class StudentController extends Controller
                 $student->update($studentData);
             }
 
-            return back()->with('success', 'Student details updated successfully.');
+            return back()
+                ->with('success', 'Student details updated successfully.')
+                ->with('student', $student->fresh());
         } catch (\Exception $e) {
             Log::error('Student update failed', [
                 'message' => $e->getMessage(),

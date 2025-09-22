@@ -6,6 +6,7 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
+use App\Models\Notice;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -39,6 +40,13 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $user = $request->user();
+
+        $unreadCount = Notice::active()
+            ->visibleTo($user)
+            ->unreadFor($user)
+            ->count();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -52,6 +60,7 @@ class HandleInertiaRequests extends Middleware
                 ] : null,
                 'role' => $request->user()?->role,
             ],
+            'unreadNoticesCount' => $unreadCount,
             'ziggy' => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

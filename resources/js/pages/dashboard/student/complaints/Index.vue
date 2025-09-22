@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import DashboardLayout from '@/layouts/dashboard/DashboardLayout.vue'
+import { usePage } from '@inertiajs/vue3'
 import ComplaintCard from '@/components/dashboard/complaints/ComplaintCard.vue'
 
 const props = defineProps({
@@ -25,6 +26,9 @@ const filteredComplaints = computed(() => {
     return matchesSearch && matchesStatus
   })
 })
+
+const page = usePage()
+const flashMessage = computed(() => page.props.flash?.success)
 </script>
 
 
@@ -53,6 +57,11 @@ const filteredComplaints = computed(() => {
           <option value="resolved">Resolved</option>
           <option value="archived">Archived</option>
         </select>
+      </div>
+
+      <!-- Flash message -->
+      <div v-if="flashMessage" class="mb-4 p-3 rounded bg-green-100 text-green-800">
+        {{ flashMessage }}
       </div>
 
       <!-- Complaints list -->

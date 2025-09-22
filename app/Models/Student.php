@@ -41,4 +41,9 @@ class Student extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class, 'user_id', 'user_id');
+    }
 }

@@ -31,7 +31,7 @@ class ComplaintController extends Controller
     {
         $complaint->load([
             'user',
-            'student.course',
+            'student.course.department',
             'responses.admin.user', // eager load responses + admin + their user profile
         ]);
 
@@ -56,7 +56,11 @@ class ComplaintController extends Controller
     public function archivedDetails($id)
     {
         $complaint = Complaint::onlyTrashed()
-            ->with('user', 'student.course')
+            ->with([
+                'user',
+                'student.course.department',
+                'responses.admin.user',
+            ])
             ->findOrFail($id);
 
         return inertia('dashboard/admin/complaints/archives/Show', [

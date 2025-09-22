@@ -3,6 +3,7 @@
 declare function route(name: string, params?: any): string;
 
 import { ref, computed, watch } from 'vue';
+import {Newspaper} from "lucide-vue-next";
 import { usePage, router } from '@inertiajs/vue3';
 import SidebarMenuItem from '@/Components/dashboard/SidebarMenuItem.vue';
 
@@ -27,12 +28,17 @@ const allMenus: Record<string, MenuItem[]> = {
     { label: 'Dashboard', icon: 'flaticon-dashboard', href: route('dashboard') },
     { label: 'Students', icon: 'flaticon-classmates', href: route('admin.students') },
     {
-      label: 'Complaints', icon: 'flaticon-checklist', submenu: [
+      label: 'Complaints',
+      icon: 'flaticon-checklist',
+      submenu: [
         { label: 'All Complaints', href: route('admin.complaints.index') },
-        {
-          label: 'Archived Complaints', href: route('admin.complaints.archived')
-        },
+        { label: 'Archived Complaints', href: route('admin.complaints.archived') },
       ]
+    },
+    { 
+      label: 'Announcements', 
+      icon: Newspaper,
+      href: route('admin.notices.index') 
     },
   ],
   student: [

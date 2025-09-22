@@ -1,14 +1,18 @@
 <?php
 
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
+use App\Http\Controllers\Admin\NoticeController as AdminNoticeController;
+use App\Http\Controllers\NoticeController as StudentNoticeController;
 use App\Http\Controllers\ComplaintResponseController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Student\ComplaintController as StudentComplaintController;
 use App\Http\Controllers\Alumni\DirectoryController;
 use App\Http\Controllers\Alumni\EventController;
 use App\Models\Course;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -51,11 +55,15 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::post('/complaints', [StudentComplaintController::class, 'store'])->name('complaints.store');
 
     Route::get('/complaints/{complaint}', [StudentComplaintController::class, 'show'])->name('complaints.show');
+
+    // Notices
+    Route::get('/notices', [StudentNoticeController::class, 'index'])->name('notices.index');
+    Route::get('/notices/{notice}', [StudentNoticeController::class, 'show'])->name('notices.show');
+    Route::post('/notices/{notice}/read', [StudentNoticeController::class, 'markAsRead'])->name('notices.read');
 });
 
 // Admin-only routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-
     // Students
     Route::get('/students', [StudentController::class, 'index'])->name('students');
     Route::get('/students/{student}', [StudentController::class, 'show'])->name('students.show');
@@ -75,20 +83,29 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('/complaints/{complaint}/status', [AdminComplaintController::class, 'updateStatus'])->name('complaints.status.update');
     Route::post('/complaints/{complaint}/response', [ComplaintResponseController::class, 'store'])->name('complaints.response.store');
     Route::delete('/complaints/{complaint}', [AdminComplaintController::class, 'destroy'])->name('complaints.destroy');
+
+    // Notices
+    Route::get('/notices', [AdminNoticeController::class, 'index'])->name('notices.index');
+    Route::get('/notices/create', [AdminNoticeController::class, 'create'])->name('notices.create');
+    Route::post('/notices', [AdminNoticeController::class, 'store'])->name('notices.store');
+    Route::get('/notices/{notice}', [AdminNoticeController::class, 'show'])->name('notices.show');
+    Route::get('/notices/{notice}/edit', [AdminNoticeController::class, 'edit'])->name('notices.edit');
+    Route::put('/notices/{notice}', [AdminNoticeController::class, 'update'])->name('notices.update');
+    Route::delete('/notices/{notice}', [AdminNoticeController::class, 'destroy'])->name('notices.destroy');
 });
 
 
-Route::get('/test-table', function () {
-    $complaints = [
-        ['id' => 1, 'title' => 'Late Lecturer', 'status' => 'Pending'],
-        ['id' => 2, 'title' => 'No Power in Hostel', 'status' => 'Resolved'],
-        ['id' => 3, 'title' => 'WiFi Not Working', 'status' => 'Pending'],
-    ];
+// Route::get('/test-table', function () {
+//     $complaints = [
+//         ['id' => 1, 'title' => 'Late Lecturer', 'status' => 'Pending'],
+//         ['id' => 2, 'title' => 'No Power in Hostel', 'status' => 'Resolved'],
+//         ['id' => 3, 'title' => 'WiFi Not Working', 'status' => 'Pending'],
+//     ];
 
-    return Inertia::render('Test/TableDemo', [
-        'complaints' => $complaints,
-    ]);
-});
+//     return Inertia::render('Test/TableDemo', [
+//         'complaints' => $complaints,
+//     ]);
+// });
 
 // API for course search
 Route::get('_dataxnr/course-search', function (Request $request) {
@@ -108,6 +125,26 @@ Route::get('_dataxnr/course-search', function (Request $request) {
         ->limit(10)
         ->get(['id', 'name', 'code']);
 });
+
+// API for department search
+Route::get('_dataxnr/department-search', function (Request $request) {
+    if (!$request->ajax()) {
+        abort(403, 'Unauthorized access.');
+    }
+
+    $q = $request->input('q');
+
+    return Department::query()
+        ->when(
+            $q,
+            fn($query) =>
+            $query->where('name', 'like', "%{$q}%")
+                ->orWhere('slug', 'like', "%{$q}%")
+        )
+        ->limit(10)
+        ->get(['id', 'name', 'slug']);
+});
+
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

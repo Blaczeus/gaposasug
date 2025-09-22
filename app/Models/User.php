@@ -10,6 +10,8 @@ use App\Models\Student;
 use App\Models\Alumni;
 use App\Models\Admin;
 use App\Models\Complaint;
+use App\Models\NoticeRead;
+use App\Models\Notice;
 
 class User extends Authenticatable
 {
@@ -38,6 +40,29 @@ class User extends Authenticatable
         'password',
         'role', // Added role attribute to tell between a student, admin or alumni
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
     public function isAdmin(): bool
     {
@@ -74,26 +99,22 @@ class User extends Authenticatable
         return $this->hasMany(Complaint::class);
     }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    // raw pivot rows
+    public function noticeReads()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(NoticeRead::class);
+    }
+
+    // notices the user has read (Notice models via pivot)
+    public function readNotices()
+    {
+        return $this->belongsToMany(Notice::class, 'notice_reads')
+            ->withPivot('read_at')
+            ->withTimestamps();
+    }
+
+    public function unreadNotices()
+    {
+        return Notice::active()->visibleTo($this)->unreadFor($this);
     }
 }
